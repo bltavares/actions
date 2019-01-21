@@ -11,7 +11,7 @@ COPY entrypoint.sh /entrypoint.sh
 CMD ["/entrypoint.sh"]
 
 LABEL "com.github.actions.name"="cljfmt"
-LABEL "com.github.actions.description"="PRovides linting and fixes using cljfmt"
+LABEL "com.github.actions.description"="Provides linting and fixes using cljfmt"
 LABEL "com.github.actions.icon"="bot"
 LABEL "com.github.actions.color"="green"
 
