@@ -20,7 +20,7 @@ main() {
 
     if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
         lein cljfmt check
-    elif [[ "$GITHUB_EVENT_NAME" == "pull_request_review" ]]; then
+    elif [[ "$GITHUB_EVENT_NAME" == "issue_comment" ]]; then
         fix
     fi
 }
