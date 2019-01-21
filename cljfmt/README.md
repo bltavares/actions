@@ -6,7 +6,7 @@ workflow "on push" {
 }
 
 action "cljfmt lint" {
-  uses = "./../actions/cljfmt"
+  uses = "bltavares/actions/cljfmt@master"
   secrets = ["GITHUB_TOKEN"]
 }
 ```
