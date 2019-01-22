@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -eo pipefail
+set -x
 
 fix() {
     lein cljfmt fix
@@ -43,17 +44,15 @@ main() {
     if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
         lint
     elif [[ "$GITHUB_EVENT_NAME" == "issue_comment" ]]; then
-        set -x
         _should_fix_issue
         _switch_to_branch
         fix
         _commit_if_needed
     elif [[ "$GITHUB_EVENT_NAME" == "pull_request_review" ]]; then
-        set -x
         _should_fix_review
         fix
         _commit_if_needed
     fi
 }
 
-main
+main "${@}"
