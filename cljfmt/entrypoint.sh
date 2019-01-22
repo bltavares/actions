@@ -24,12 +24,43 @@ _switch_to_branch() {
 
 _commit_if_needed() {
     if [[ -n "$(git status -s)" ]]; then
-        git config credential.helper 'cache --timeout=120'
-        git config user.email "github-actions@example.com"
-        git config user.name "cljfmt fix"
-        git add .
-        git commit -m "Apply cljfmt fix"
-        git push -q https://lint:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} $(git rev-parse --abbrev-ref HEAD)
+        tmp_file=$(mktemp)
+
+        while read src_mode dst_mode src_sha dst_sha flag path; do
+            echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"sha\": \"${src_sha}\"}" >> $tmp_file
+        done < <(git diff-files)
+
+        tree_payload="""
+{
+  \"base_tree\": \"${GITHUB_SHA}\",
+  \"tree\": $(jq -s '.' "$tmp_file")
+}
+"""
+        tree_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
+                             -d "$tree_payload" \
+                             https://api.github.com/repos/${GITHUB_REPOSITORY}/git/trees)"
+
+        commit_payload="""
+{
+    \"message\": \"lint fix\",
+    \"tree\": $(jq '.sha' <<<"$tree_response"),
+    \"parents\": [\"${GITHUB_SHA}\"]
+}
+"""
+        commit_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
+                               -d "$commit_payload" \
+                               https://api.github.com/repos/${GITHUB_REPOSITORY}/git/commits)"
+
+        update_branch_payload="""
+{
+\"sha\": $(jq '.sha' <<<"$commit_response")
+}
+"""
+
+        update_branch_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
+                                      -d "$update_branch_payload" \
+                                      -X PATCH \
+                                      https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/${GITHUB_REF})"
     fi
 }
 
