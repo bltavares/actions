@@ -29,7 +29,7 @@ _commit_if_needed() {
         git config user.name "cljfmt fix"
         git add .
         git commit -m "Apply cljfmt fix"
-        git push -q https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} $(git rev-parse --abbrev-ref HEAD)
+        git push -q https://lint:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} $(git rev-parse --abbrev-ref HEAD)
     fi
 }
 
