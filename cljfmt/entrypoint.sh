@@ -3,9 +3,11 @@
 set -eo pipefail
 
 fix() {
+cat $GITHUB_EVENT_PATH
+env
     lein cljfmt fix
 
-    [[ -z $(git status -s) ]] && {
+    [[ -z "$(git status -s)" ]] && {
         git config credential.helper 'cache --timeout=120'
         git config user.email "github-actions@example.com"
         git config user.name "cljfmt fix"
