@@ -60,7 +60,7 @@ _commit_if_needed() {
         update_branch_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
                                       -d "$update_branch_payload" \
                                       -X PATCH \
-                                      https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/${GITHUB_REF})"
+                                      https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF})"
     fi
 }
 
