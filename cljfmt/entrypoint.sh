@@ -35,7 +35,7 @@ _commit_if_needed() {
             file_response=$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
                                  -d "$file_payload" \
                                  https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs)
-            echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"sha\": \"$(jq '.sha' <<<"$file_response")\"}" >> $tmp_file
+            echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"sha\": $(jq '.sha' <<<"$file_response")}" >> $tmp_file
         done < <(git diff-files)
 
         tree_payload="""
