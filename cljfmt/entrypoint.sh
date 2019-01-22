@@ -7,7 +7,7 @@ fix() {
 }
 
 lint() {
-   lein cljfmt check
+    lein cljfmt check
 }
 
 _should_fix() {
@@ -17,23 +17,19 @@ _should_fix() {
 }
 
 _switch_to_branch() {
-git branch -v
-git rev-parse --abbrev-ref HEAD
-  git checkout ${GITHUB_SHA}
-  git branch -v
-  git rev-parse --abbrev-ref HEAD
-
+    remote_branch_name=$(git name-rev --name-only "${GITHUB_SHA}")
+    git checkout -b "${remote_branch_name#remotes/origin}" --track "$remote_branch_name"
 }
 
 _commit_if_needed() {
-    [[ -z "$(git status -s)" ]] && {
+    if [[ -z "$(git status -s)" ]]; then
         git config credential.helper 'cache --timeout=120'
         git config user.email "github-actions@example.com"
         git config user.name "cljfmt fix"
         git add .
         git commit -m "Apply cljfmt fix"
-        git push -q https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git $(git rev-parse --abbrev-ref HEAD)
-    } || true
+        git push -q https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} $(git rev-parse --abbrev-ref HEAD)
+    fi
 }
 
 main() {
@@ -42,6 +38,7 @@ main() {
     if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
         lint
     elif [[ "$GITHUB_EVENT_NAME" == "issue_comment" ]]; then
+        set -x
         _should_fix
         _switch_to_branch
         fix
