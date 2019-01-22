@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 set -x
 
 fix() {
@@ -23,7 +23,7 @@ _switch_to_branch() {
 }
 
 _commit_if_needed() {
-    if [[ -z "$(git status -s)" ]]; then
+    if [[ -n "$(git status -s)" ]]; then
         git config credential.helper 'cache --timeout=120'
         git config user.email "github-actions@example.com"
         git config user.name "cljfmt fix"
@@ -43,13 +43,14 @@ main() {
 
     if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
         lint
-    elif [[ "$GITHUB_EVENT_NAME" == "issue_comment" ]]; then
-        _should_fix_issue
-        _switch_to_branch
-        fix
-        _commit_if_needed
     elif [[ "$GITHUB_EVENT_NAME" == "pull_request_review" ]]; then
         _should_fix_review
+        fix
+        _commit_if_needed
+    elif [[ "TODO$GITHUB_EVENT_NAME" == "issue_comment" ]]; then
+        _should_fix_issue
+        # TODO: I'm unable to get the branch given an issue comment event
+        _switch_to_branch
         fix
         _commit_if_needed
     fi
