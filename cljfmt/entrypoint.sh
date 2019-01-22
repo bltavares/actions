@@ -5,6 +5,7 @@ set -eo pipefail
 fix() {
 cat $GITHUB_EVENT_PATH
 env
+git rev-parse --abbrev-ref HEAD
     lein cljfmt fix
 
     [[ -z "$(git status -s)" ]] && {
