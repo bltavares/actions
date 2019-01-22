@@ -66,7 +66,7 @@ _commit_if_needed() {
 
 _should_fix_review() {
     fix_comment="$( jq --raw-output '.review.body | select(. | startswith("lint fix"))' "$GITHUB_EVENT_PATH")"
-    [[ -n "$fix_comment" ]] || exit 0
+    [[ -n "$fix_comment" ]] || exit 78
 }
 
 main() {
