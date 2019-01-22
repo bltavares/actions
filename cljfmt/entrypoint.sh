@@ -27,7 +27,15 @@ _commit_if_needed() {
         tmp_file=$(mktemp)
 
         while read src_mode dst_mode src_sha dst_sha flag path; do
-            echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"content\": \"$(base64 $path | tr -d '\n')\"}" >> $tmp_file
+            file_payload= """
+{
+\"encoding\": \"base64\",
+ \"content\": \"$(base64 $path | tr -d '\n')\"
+}"""
+            file_response=$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
+                                 -d "$file_payload" \
+                                 https://api.github.com/repos/${GITHUB_REPOSITORY}/git/trees)
+            echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"sha\": \"$(jq '.sha' <<<"$file_response")\"}" >> $tmp_file
         done < <(git diff-files)
 
         tree_payload="""
