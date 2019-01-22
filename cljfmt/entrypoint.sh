@@ -27,10 +27,10 @@ _commit_if_needed() {
         tmp_file=$(mktemp)
 
         while read src_mode dst_mode src_sha dst_sha flag path; do
-            file_payload= """
+            file_payload="""
 {
-\"encoding\": \"base64\",
- \"content\": \"$(base64 $path | tr -d '\n')\"
+  \"encoding\": \"base64\",
+  \"content\": \"$(base64 $path | tr -d '\n')\"
 }"""
             file_response=$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
                                  -d "$file_payload" \
