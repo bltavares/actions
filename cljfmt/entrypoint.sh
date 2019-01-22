@@ -27,7 +27,7 @@ _commit_if_needed() {
         tmp_file=$(mktemp)
 
         while read src_mode dst_mode src_sha dst_sha flag path; do
-            echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"content\": \"$(base64 $path)\"}" >> $tmp_file
+            echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"content\": \"$(base64 $path | tr -d '\n')\"}" >> $tmp_file
         done < <(git diff-files)
 
         tree_payload="""
