@@ -1,4 +1,4 @@
-ACTIONS = cljfmt shellcheck hadolint shfmt
+ACTIONS = cljfmt shellcheck hadolint shfmt pwshfmt
 LIBS = $(addsuffix /lib.sh,$(ACTIONS))
 
 all: lint $(LIBS)

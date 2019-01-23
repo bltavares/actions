@@ -24,8 +24,12 @@ _should_fix_review() {
 	[[ -n $fix_comment ]] || exit 78
 }
 
+_git_is_dirty() {
+	[[ -n "$(git status -s)" ]]
+}
+
 _commit_if_needed() {
-	if [[ -n "$(git status -s)" ]]; then
+	if _git_is_dirty; then
 		tmp_file="$(mktemp)"
 
 		# shellcheck disable=SC2034  # Unused variables left for readability
