@@ -2,11 +2,16 @@
 ```hcl
 workflow "on push" {
   on = "push"
-  resolves = ["cljfmt lint"]
+  resolves = ["cljfmt"]
 }
 
-action "cljfmt lint" {
-  uses = "bltavares/actions/cljfmt@master"
+workflow "on review" {
+  resolves = ["cljfmt"]
+  on = "pull_request_review"
+}
+
+action "cljfmt" {
+  uses = "bltavares/actions/cljfmt@cljfmt-actions"
   secrets = ["GITHUB_TOKEN"]
 }
 ```

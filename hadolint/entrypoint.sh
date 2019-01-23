@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-source lib.sh
+# shellcheck disable=SC1091
+source /lib.sh
 
 lint() {
     find . -name 'Dockerfile' -type f -exec hadolint {} +

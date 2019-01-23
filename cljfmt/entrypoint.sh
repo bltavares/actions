@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-source lib.sh
+# shellcheck disable=SC1091
+source /lib.sh
 
 fix() {
     lein cljfmt fix
