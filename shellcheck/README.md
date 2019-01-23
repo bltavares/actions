@@ -1,3 +1,6 @@
+## shellcheck action
+
+## Example workflow
 
 ```hcl
 workflow "on push" {

@@ -1,7 +1,14 @@
-# actions
+# Github Actions
+
+Useful GitHub Actions to validate changes and provide lint fixes.
+
+Detailed documentation on how to use each action located on their folder.
+
+### Provided actions
 
 
-```bash
-action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
-pr_url=$(jq --raw-output .pull_request.url "$GITHUB_EVENT_PATH")
-```
+| Action                   | Description       | Lint | Fix |
+|--------------------------|-------------------|------|-----|
+| [cljfmt](cljfmt)         | Clojure formatter | x    | x   |
+| [hadolint](hadolint)     | Dockerfile linter | x    |     |
+| [shellcheck](shellcheck) | Bash linter       | x    |     |
