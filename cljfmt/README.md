@@ -2,7 +2,7 @@
 
 ## Validations on Push
 
-This actions will check the formating of the project.
+This actions will check the formating of the project, using [cljfmt](https://github.com/weavejester/cljfmt).
 
 `cljfmt` plugin required to be installed on your project, as well as any variable needed to access all the dependencies of the project.
 

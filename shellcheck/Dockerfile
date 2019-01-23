@@ -3,7 +3,7 @@ FROM koalaman/shellcheck-alpine:stable
 LABEL "com.github.actions.name"="shellcheck"
 LABEL "com.github.actions.description"="Provides linting using shellcheck"
 LABEL "com.github.actions.icon"="user-check"
-LABEL "com.github.actions.color"="green"
+LABEL "com.github.actions.color"="blue"
 
 LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"

@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/powershell:6.1.0-rc.1-alpine-3.8
 
-LABEL "com.github.actions.name"="hadolint"
-LABEL "com.github.actions.description"="Provides linting using hadolint"
+LABEL "com.github.actions.name"="pwshfmt"
+LABEL "com.github.actions.description"="Provides Powershell formatter using PowerShell-Beautifier"
 LABEL "com.github.actions.icon"="user-check"
 LABEL "com.github.actions.color"="green"
 

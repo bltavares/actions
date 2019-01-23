@@ -2,9 +2,9 @@ FROM hadolint/hadolint:v1.15.0 as hadolint
 FROM alpine:3.8
 
 LABEL "com.github.actions.name"="hadolint"
-LABEL "com.github.actions.description"="Provides linting using hadolint"
+LABEL "com.github.actions.description"="Provides Dockerfile linting using hadolint"
 LABEL "com.github.actions.icon"="user-check"
-LABEL "com.github.actions.color"="green"
+LABEL "com.github.actions.color"="blue"
 
 LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"
