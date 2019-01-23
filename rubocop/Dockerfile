@@ -3,7 +3,7 @@ FROM ruby:2-slim
 LABEL "com.github.actions.name"="rubocop"
 LABEL "com.github.actions.description"="Provides linting and fixes using rubocop"
 LABEL "com.github.actions.icon"="user-check"
-LABEL "com.github.actions.color"="green"
+LABEL "com.github.actions.color"="purple"
 
 LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"

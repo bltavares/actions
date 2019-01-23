@@ -11,7 +11,7 @@ fix() {
 
 lint() {
 	fix
-	_git_is_dirty
+	! _git_is_dirty
 }
 
 main() {
