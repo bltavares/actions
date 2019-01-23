@@ -43,12 +43,12 @@ action "rubocop" {
 }
 
 action "pwshfmt" {
-  uses = "pwshfmt"
+  uses = "./pwshfmt"
   secrets = ["GITHUB_TOKEN"]
 }
 
 action "cljfmt" {
-  uses = "cljfmt"
+  uses = "./cljfmt"
   secrets = ["GITHUB_TOKEN"]
 }
 
