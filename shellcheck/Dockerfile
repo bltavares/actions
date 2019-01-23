@@ -1,7 +1,7 @@
-FROM clojure:lein-alpine
+FROM koalaman/shellcheck-alpine:stable
 
-LABEL "com.github.actions.name"="cljfmt"
-LABEL "com.github.actions.description"="Provides linting and fixes using cljfmt"
+LABEL "com.github.actions.name"="shellcheck"
+LABEL "com.github.actions.description"="Provides linting using shellcheck"
 LABEL "com.github.actions.icon"="user-check"
 LABEL "com.github.actions.color"="green"
 
