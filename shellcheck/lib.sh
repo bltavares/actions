@@ -42,7 +42,7 @@ _commit_if_needed() {
                              -d "$tree_payload" \
                              "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/trees")"
 
-        commit_payload="{\"message\": \"lint fix\", \"tree\": $(jq '.sha' <<<"$tree_response"), \"parents\": [\"${GITHUB_SHA}\"]}"
+        commit_payload="{\"message\": \"${GITHUB_ACTION}: lint fix\", \"tree\": $(jq '.sha' <<<"$tree_response"), \"parents\": [\"${GITHUB_SHA}\"]}"
         commit_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
                                -d "$commit_payload" \
                                "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/commits")"
