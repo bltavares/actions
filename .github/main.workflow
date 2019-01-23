@@ -16,3 +16,7 @@ action "shellcheck" {
 action "hadolint" {
   uses = "./hadolint"
 }
+
+action "shfmt" {
+  uses = "./shfmt"
+}

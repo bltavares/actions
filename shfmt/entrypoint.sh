@@ -10,7 +10,7 @@ fix() {
 }
 
 lint() {
-    shfmt -d .
+    shfmt -s -l -d .
 }
 
 main() {
