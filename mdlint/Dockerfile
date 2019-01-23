@@ -3,7 +3,7 @@ FROM node:alpine
 LABEL "com.github.actions.name"="mdlint"
 LABEL "com.github.actions.description"="Provides linting for Markdown files"
 LABEL "com.github.actions.icon"="user-check"
-LABEL "com.github.actions.color"="green"
+LABEL "com.github.actions.color"="blue"
 
 LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"

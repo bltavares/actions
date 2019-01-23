@@ -10,11 +10,12 @@ Detailed documentation on how to use each action located on their folder.
 | Action                   | Description          | Lint on Push | Fix on Review |
 |--------------------------|----------------------|--------------|---------------|
 | [cljfmt](cljfmt)         | Clojure formatter    | x            | x             |
-| [shfmt](shfmt)           | Shell formatter      | x            | x             |
 | [pwshfmt](pwshfmt)       | Powershell Formatter | x            | x             |
+| [rubocop](rubocop)       | Ruby linter          | x            | x             |
+| [shfmt](shfmt)           | Shell formatter      | x            | x             |
 | [hadolint](hadolint)     | Dockerfile linter    | x            |               |
-| [shellcheck](shellcheck) | Bash linter          | x            |               |
 | [mdlint](mdlint)         | Markdown linting     | x            |               |
+| [shellcheck](shellcheck) | Bash linter          | x            |               |
 <!-- markdownlint-enable MD013 -->
 
 ## Building

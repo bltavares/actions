@@ -9,13 +9,13 @@ workflow "On review" {
 }
 
 action "lint" {
-  needs = ["shellcheck", "hadolint", "shfmt", "mdlint"]
+  needs = ["shellcheck", "hadolint", "shfmt", "mdlint", "rubocop", "pwshfmt"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
 
 action "fixes" {
-  needs = ["shfmt"]
+  needs = ["shfmt", "pwshfmt", "rubocop"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
@@ -35,4 +35,29 @@ action "shfmt" {
 
 action "mdlint" {
   uses = "./mdlint"
+}
+
+action "rubocop" {
+  uses = "./rubocop"
+  secrets = ["GITHUB_TOKEN"]
+}
+
+action "pwshfmt" {
+  uses = "./pwshfmt"
+  secrets = ["GITHUB_TOKEN"]
+}
+
+action "cljfmt" {
+  uses = "./cljfmt"
+  secrets = ["GITHUB_TOKEN"]
+}
+
+workflow "on pull request merge, delete the branch" {
+  on = "pull_request"
+  resolves = ["branch cleanup"]
+}
+
+action "branch cleanup" {
+  uses = "jessfraz/branch-cleanup-action@master"
+  secrets = ["GITHUB_TOKEN"]
 }
