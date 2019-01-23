@@ -6,7 +6,7 @@ set -euo pipefail
 source /lib.sh
 
 fix() {
-	shfmt -w .
+	shfmt -s -w .
 }
 
 lint() {

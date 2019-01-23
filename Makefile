@@ -1,12 +1,15 @@
-ACTIONS = cljfmt shellcheck hadolint shfmt pwshfmt
+ACTIONS = cljfmt shellcheck hadolint shfmt pwshfmt mdlint
 LIBS = $(addsuffix /lib.sh,$(ACTIONS))
 
-all: lint $(LIBS)
+all: fix lint $(LIBS)
 
 lint:
 	act
 
+fix:
+	shfmt -s -w .
+
 $(LIBS) : lib.sh
 	cp $< $@
 
-.PHONY: all lint
+.PHONY: all lint fix

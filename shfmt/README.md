@@ -2,13 +2,15 @@
 
 ## Validations on Push
 
-This actions will check the formating of the Dockerfiles in the project, using [mvdan/sh](https://github.com/mvdan/sh/)
+This actions will check the formating of the Dockerfiles in the project, using
+[mvdan/sh](https://github.com/mvdan/sh/)
 
 ## Fixes on Pull Request review
 
 This action provides automated fixes using Pull Request review comments.
 
-If the comment starts with `fix $action_name` or `fix shfmt`, a new commit will be added to the branch with the automated fixes applied.
+If the comment starts with `fix $action_name` or `fix shfmt`, a new commit will
+be added to the branch with the automated fixes applied.
 
 ## Example workflow
 

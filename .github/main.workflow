@@ -9,7 +9,7 @@ workflow "On review" {
 }
 
 action "lint" {
-  needs = ["shellcheck", "hadolint", "shfmt"]
+  needs = ["shellcheck", "hadolint", "shfmt", "mdlint"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
@@ -31,4 +31,8 @@ action "hadolint" {
 action "shfmt" {
   uses = "./shfmt"
   secrets = ["GITHUB_TOKEN"]
+}
+
+action "mdlint" {
+  uses = "./mdlint"
 }

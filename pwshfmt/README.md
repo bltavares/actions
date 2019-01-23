@@ -2,7 +2,8 @@
 
 ## Validations on Push
 
-This actions will check the formating of the Dockerfiles in the project, using [Powershell-Beautiffier](https://github.com/DTW-DanWard/PowerShell-Beautifier)
+This actions will check the formating of the Dockerfiles in the project, using
+[Powershell-Beautiffier](https://github.com/DTW-DanWard/PowerShell-Beautifier)
 
 Action name was changed just to provide a shorter version
 
@@ -10,7 +11,8 @@ Action name was changed just to provide a shorter version
 
 This action provides automated fixes using Pull Request review comments.
 
-If the comment starts with `fix $action_name` or `fix pwshfmt`, a new commit will be added to the branch with the automated fixes applied.
+If the comment starts with `fix $action_name` or `fix pwshfmt`, a new commit
+will be added to the branch with the automated fixes applied.
 
 ## Example workflow
 
