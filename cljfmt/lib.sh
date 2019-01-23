@@ -1,7 +1,10 @@
 #!/bin/bash
 
 _requires_token() {
-    [[ -z "$GITHUB_TOKEN" ]] && echo "Set the GITHUB_TOKEN env variable." && exit 1
+    if [[ -z "$GITHUB_TOKEN" ]]; then
+        echo "Set the GITHUB_TOKEN env variable."
+        exit 1
+    fi
 }
 
 _should_fix_issue() {
