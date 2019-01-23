@@ -1,13 +1,16 @@
-FROM clojure:lein-alpine
+FROM hadolint/hadolint:v1.15.0 as hadolint
+FROM alpine:3.8
 
-LABEL "com.github.actions.name"="cljfmt"
-LABEL "com.github.actions.description"="Provides linting and fixes using cljfmt"
+LABEL "com.github.actions.name"="hadolint"
+LABEL "com.github.actions.description"="Provides linting using hadolint"
 LABEL "com.github.actions.icon"="user-check"
 LABEL "com.github.actions.color"="green"
 
 LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"
 LABEL "maintainer"="Bruno Tavares <connect+githubactions@bltavares.com>"
+
+COPY --from=hadolint /bin/hadolint /bin/hadolint
 
 RUN apk --no-cache add \
   curl=7.61.1-r1 \

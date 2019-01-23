@@ -1,8 +1,18 @@
 workflow "Check changes" {
  on = "push"
- resolves = "shellcheck"
+ resolves = "lint"
+}
+
+action "lint" {
+  needs = ["shellcheck", "hadolint"]
+  uses = "actions/bin/sh@master"
+  args = ["true"]
 }
 
 action "shellcheck" {
   uses = "./shellcheck"
+}
+
+action "hadolint" {
+  uses = "./hadolint"
 }
