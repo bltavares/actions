@@ -30,5 +30,5 @@ action "hadolint" {
 
 action "shfmt" {
   uses = "./shfmt"
-  secrects = ["GITHUB_TOKEN"]
+  secrets = ["GITHUB_TOKEN"]
 }
