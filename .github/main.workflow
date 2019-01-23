@@ -15,7 +15,7 @@ action "lint" {
 }
 
 action "fixes" {
-  needs = ["shfmt""]
+  needs = ["shfmt"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
