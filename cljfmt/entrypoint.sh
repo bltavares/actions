@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+set -x
 
 # shellcheck disable=SC1091
 source /lib.sh
