@@ -81,8 +81,8 @@ information provided)_
 
 #### Autofix on push
 
-It is possible to add linters which will automatically fix itself.
-It does so by using the underlying autofix, commiting and running the lints right after.
+It is possible to add linters which will automatically fix itself. It does so by
+using the underlying autofix, commiting and running the lints right after.
 
 Running a second time allows the check to validate if the automatic changes
 fixed all the warnings, as some warnings cannot be automated by the underlying
@@ -103,16 +103,17 @@ action "shfmt" {
 }
 ```
 
-
 ##### :warning: Caveats
 
 Autofixes requires a certain level of coordination when building the workflow.
 Given that each action runes and modify the code, they need to be sequential,
 otherwise a data race might lead to lost commits.
 
-The _autofixers_ might run in parallel of other linters, but not in parallel of other autofixers.
+The _autofixers_ might run in parallel of other linters, but not in parallel of
+other autofixers.
 
-Here is an example of how to chain fixers on a workflow, while still having parallel linters running.
+Here is an example of how to chain fixers on a workflow, while still having
+parallel linters running.
 
 ```hcl
 workflow "on push" {
@@ -158,11 +159,9 @@ This would generate the following pipeline:
 
 ![Autofixer visual pipeline](docs/autofixer-visual-pipeline.png)
 
-
 And would result on the following example on pushes:
 
 ![Autofixer commit example](docs/autofixer-commit-example.png)
-
 
 ## Running locally
 
@@ -175,6 +174,9 @@ GitHub Actions would, allowing to use them as a quick feedback tool.
 Alternatively, if **autofixers** are present on your project workflow, not only
 they will execute the linter, but it will commit and push their fixes from your
 machine as well.
+
+:warning: Autofixers will commit any dirty tree state if run locally. Only run
+them on clean branches if you want to keep the git history clean.
 
 This make them effective pre-commit hooks that either run remotely or locally.
 

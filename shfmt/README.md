@@ -12,6 +12,8 @@ This action provides automated fixes using Pull Request review comments.
 If the comment starts with `fix $action_name` or `fix shfmt`, a new commit will
 be added to the branch with the automated fixes applied.
 
+**Supports**: autofix on push
+
 ## Example workflow
 
 ```hcl
@@ -27,6 +29,8 @@ workflow "on review" {
 
 action "shfmt" {
   uses = "bltavares/actions/shfmt@master"
+  # Enable autofix on push
+  # args = ["autofix"]
   # Used for pushing changes for `fix` comments on review
   secrets = ["GITHUB_TOKEN"]
 }
