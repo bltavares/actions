@@ -1,6 +1,6 @@
 workflow "Check changes" {
   on = "push"
-  resolves = "lint"
+  resolves = ["lint", "fixes"]
 }
 
 workflow "On review" {
@@ -9,7 +9,7 @@ workflow "On review" {
 }
 
 action "lint" {
-  needs = ["shellcheck", "hadolint", "mdlint", "fixes"]
+  needs = ["shellcheck", "hadolint", "mdlint"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
