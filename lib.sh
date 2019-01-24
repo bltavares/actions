@@ -24,13 +24,6 @@ _should_fix_review() {
 	[[ -n $fix_comment ]] || exit 0
 }
 
-_should_check_suit() {
-	cat $GITHUB_EVENT_PATH
-	suite_completed="$(jq --raw-output '.action | select(. != "completed")' "$GITHUB_EVENT_PATH")"
-	action_failed="$(jq --raw-output ".check_suite.body | select(. | startswith(\"$1\"))" "$GITHUB_EVENT_PATH")"
-	[[ -n $fix_comment ]] || exit 0
-}
-
 _git_is_dirty() {
 	[[ -n "$(git status -s)" ]]
 }
