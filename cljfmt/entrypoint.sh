@@ -19,6 +19,7 @@ main() {
 			_requires_token
 			fix
 			_commit_if_needed
+			lint
 		else
 			lint
 		fi

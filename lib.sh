@@ -62,5 +62,8 @@ _commit_if_needed() {
 			-d "$update_branch_payload" \
 			-X PATCH \
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF}")"
+
+		git add .
+		git commit -m "WIP"
 	fi
 }
