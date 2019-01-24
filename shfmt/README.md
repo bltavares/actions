@@ -22,6 +22,7 @@ workflow "on push" {
   resolves = ["shfmt"]
 }
 
+# Used for fix on review
 workflow "on review" {
   resolves = ["shfmt"]
   on = "pull_request_review"

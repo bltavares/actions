@@ -15,7 +15,7 @@ workflow "on push" {
   resolves = ["mdlint"]
 }
 
-action "cljfmt" {
+action "mdlint" {
   uses = "bltavares/actions/mdlint@master"
 }
 ```
