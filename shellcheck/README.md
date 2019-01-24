@@ -12,7 +12,7 @@ workflow "on push" {
   resolves = ["shellcheck"]
 }
 
-action "cljfmt" {
+action "shellcheck" {
   uses = "bltavares/actions/shellcheck@master"
 }
 ```

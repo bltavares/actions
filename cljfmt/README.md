@@ -28,6 +28,7 @@ workflow "on push" {
   resolves = ["cljfmt"]
 }
 
+# Used for fix on review
 workflow "on review" {
   resolves = ["cljfmt"]
   on = "pull_request_review"
