@@ -22,4 +22,4 @@ RUN gem install rubocop
 
 COPY lib.sh /lib.sh
 COPY entrypoint.sh /entrypoint.sh
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
