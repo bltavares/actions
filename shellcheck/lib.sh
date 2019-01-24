@@ -63,7 +63,11 @@ _commit_if_needed() {
 			-X PATCH \
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF}")"
 
-		git add .
-		git commit -m "${GITHUB_ACTION}: lint fix"
+		{
+			git config --global user.name "github-actions[bot]"
+			git config --global user.email "github-actions[bot]@users.noreply.github.com"
+			git add .
+			git commit -m "${GITHUB_ACTION}: lint fix"
+		}
 	fi
 }
