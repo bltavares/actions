@@ -6,11 +6,11 @@ set -euo pipefail
 source /lib.sh
 
 fix() {
-  cargo fmt
+	cargo fmt
 }
 
 lint() {
-  cargo fmt -- --check
+	cargo fmt -- --check
 }
 
 _lint_and_fix_action rustfmt "${@}"

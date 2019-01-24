@@ -6,11 +6,11 @@ set -euo pipefail
 source /lib.sh
 
 fix() {
-  cargo fix
+	cargo fix
 }
 
 lint() {
-  cargo clippy --all-targets --all-features
+	cargo clippy --all-targets --all-features
 }
 
 _lint_and_fix_action clippy "${@}"
