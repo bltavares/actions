@@ -1,22 +1,29 @@
 # Github Actions
 
-Useful GitHub Actions to validate changes and provide lint fixes.
-
+Useful GitHub Actions to help build software.
 Detailed documentation on how to use each action located on their folder.
 
 ## Provided actions
 
+### Linters and Formatters
+
 <!-- markdownlint-disable MD013 -->
-| Action                   | Description          | Lint on Push | Fix on Review |
-|--------------------------|----------------------|--------------|---------------|
-| [cljfmt](cljfmt)         | Clojure formatter    | x            | x             |
-| [pwshfmt](pwshfmt)       | Powershell Formatter | x            | x             |
-| [rubocop](rubocop)       | Ruby linter          | x            | x             |
-| [shfmt](shfmt)           | Shell formatter      | x            | x             |
-| [hadolint](hadolint)     | Dockerfile linter    | x            |               |
-| [mdlint](mdlint)         | Markdown linting     | x            |               |
-| [shellcheck](shellcheck) | Bash linter          | x            |               |
+| Action                   | Description          | Lint on Push | Fix with Review | Autofix on Push |
+|--------------------------|----------------------|--------------|-----------------|-----------------|
+| [cljfmt](cljfmt)         | Clojure formatter    | x            | x               |x                |
+| [pwshfmt](pwshfmt)       | Powershell Formatter | x            | x               |x                |
+| [rubocop](rubocop)       | Ruby linter          | x            | x               |x                |
+| [shfmt](shfmt)           | Shell formatter      | x            | x               |x                |
+| [hadolint](hadolint)     | Dockerfile linter    | x            |                 |                 |
+| [mdlint](mdlint)         | Markdown linting     | x            |                 |                 |
+| [shellcheck](shellcheck) | Bash linter          | x            |                 |                 |
 <!-- markdownlint-enable MD013 -->
+
+#### Fixes by Review comments
+
+#### Autofix on push
+
+##### :warning: Caveats
 
 ## Building
 
