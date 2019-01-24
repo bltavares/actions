@@ -13,4 +13,4 @@ lint() {
 	shfmt -s -l -d .
 }
 
-_lint_and_fix_action "${@}"
+_lint_and_fix_action shfmt "${@}"
