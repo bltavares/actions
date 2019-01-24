@@ -13,6 +13,8 @@ lint() {
 	lein cljfmt check
 }
 
+set -x
+
 main() {
 	if [[ $GITHUB_EVENT_NAME == "push" ]]; then
 		if [[ $1 == "autofix" ]]; then
