@@ -12,7 +12,7 @@ workflow "on push" {
   resolves = ["hadolint"]
 }
 
-action "cljfmt" {
+action "hadolint" {
   uses = "bltavares/actions/hadolint@master"
 }
 ```

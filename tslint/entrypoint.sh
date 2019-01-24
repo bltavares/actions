@@ -6,11 +6,11 @@ set -euo pipefail
 source /lib.sh
 
 lint() {
-    tslint --project .
+	tslint --project .
 }
 
 fix() {
-    tslint --project . --fix
+	tslint --project . --fix
 }
 
 _lint_and_fix_action tslint "${@}"

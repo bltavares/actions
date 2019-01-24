@@ -22,6 +22,7 @@ workflow "on push" {
   resolves = ["rubocop"]
 }
 
+# Used for fix on review
 workflow "on review" {
   resolves = ["rubocop"]
   on = "pull_request_review"
