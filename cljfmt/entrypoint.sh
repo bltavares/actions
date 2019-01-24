@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+set -x
 
 # shellcheck disable=SC1091
 source /lib.sh
@@ -12,8 +13,6 @@ fix() {
 lint() {
 	lein cljfmt check
 }
-
-set -x
 
 main() {
 	if [[ $GITHUB_EVENT_NAME == "push" ]]; then
