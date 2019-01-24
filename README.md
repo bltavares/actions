@@ -124,13 +124,13 @@ workflow "on push" {
 action "linters" {
   needs = ["mdlint", "shellcheck"]
   uses = "actions/bin/sh@master"
-  args = "echo Linters ok"
+  args = ["echo Linters ok"]
 }
 
 action "fixers" {
   needs = ["shfmt", "cljfmt"]
   uses = "actions/bin/sh@master"
-  args = "echo Fixers ok"
+  args = ["echo Fixers ok"]
 }
 
 action "shfmt" {
