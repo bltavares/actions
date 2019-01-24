@@ -1,7 +1,7 @@
 FROM node:alpine
 
 LABEL "com.github.actions.name"="mdlint"
-LABEL "com.github.actions.description"="Provides linting for Markdown files"
+LABEL "com.github.actions.description"="Provides linting for TypeScript files"
 LABEL "com.github.actions.icon"="user-check"
 LABEL "com.github.actions.color"="blue"
 
