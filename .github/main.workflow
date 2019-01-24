@@ -15,7 +15,7 @@ action "lint" {
 }
 
 action "fixes" {
-  needs = ["shfmt", "pwshfmt", "rubocop", "tslint"]
+  needs = ["shfmt", "pwshfmt", "rubocop"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
@@ -48,13 +48,6 @@ action "rubocop" {
 action "pwshfmt" {
   needs = ["rubocop"]
   uses = "./pwshfmt"
-  args = ["autofix"]
-  secrets = ["GITHUB_TOKEN"]
-}
-
-action "tslint" {
-  uses = "./tslint"
-  needs = "pwshfmt"
   args = ["autofix"]
   secrets = ["GITHUB_TOKEN"]
 }
