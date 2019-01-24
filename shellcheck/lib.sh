@@ -64,6 +64,6 @@ _commit_if_needed() {
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF}")"
 
 		git add .
-		git commit -m "WIP"
+		git commit -m "${GITHUB_ACTION}: lint fix"
 	fi
 }
