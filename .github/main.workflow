@@ -9,7 +9,7 @@ workflow "On review" {
 }
 
 action "lint" {
-  needs = ["shellcheck", "hadolint", "mdlint"]
+  needs = ["shellcheck", "hadolint", "mdlint", "kubeval"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
@@ -30,6 +30,10 @@ action "hadolint" {
 
 action "mdlint" {
   uses = "./mdlint"
+}
+
+action "kubeval" {
+  uses = "./kubeval"
 }
 
 action "shfmt" {
