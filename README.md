@@ -18,6 +18,7 @@ Detailed documentation on how to use each action located on their folder.
 | [shfmt](shfmt)           | Shell formatter               | x            | x               | x               |
 | [tslint](tslint)         | TypeScript lint and formatter | x            | x               | x               |
 | [hadolint](hadolint)     | Dockerfile linter             | x            |                 |                 |
+| [kubeval](kubeval)       | Kubernets (k8s) linter        | x            |                 |                 |
 | [mdlint](mdlint)         | Markdown linting              | x            |                 |                 |
 | [shellcheck](shellcheck) | Bash linter                   | x            |                 |                 |
 <!-- markdownlint-enable MD013 -->
