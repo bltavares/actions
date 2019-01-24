@@ -21,7 +21,7 @@ __switch_to_branch() {
 
 _should_fix_review() {
 	fix_comment="$(jq --raw-output ".review.body | select(. | startswith(\"$1\"))" "$GITHUB_EVENT_PATH")"
-	[[ -n $fix_comment ]] || exit 78
+	[[ -n $fix_comment ]] || exit 0
 }
 
 _git_is_dirty() {
@@ -62,5 +62,8 @@ _commit_if_needed() {
 			-d "$update_branch_payload" \
 			-X PATCH \
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF}")"
+
+		git add .
+		git commit -m "WIP"
 	fi
 }
