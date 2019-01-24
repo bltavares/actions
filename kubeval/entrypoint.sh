@@ -6,7 +6,7 @@ set -euo pipefail
 source /lib.sh
 
 lint() {
-    find "${1:-.}" -name '*.yml' -or -name '*.yaml' -exec hadolint {} +
+	find "${1:-.}" -name '*.yml' -or -name '*.yaml' -exec hadolint {} +
 }
 
 _lint_action "${@}"
