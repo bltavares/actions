@@ -14,13 +14,18 @@ lint() {
 }
 
 main() {
-	if [[ ${GITHUB_EVENT_NAME} == "push" ]]; then
+	if [[ $GITHUB_EVENT_NAME == "push" ]]; then
 		lint
 	elif [[ $GITHUB_EVENT_NAME == "pull_request_review" ]]; then
 		_requires_token
 		_should_fix_review "fix $GITHUB_ACTION" || _should_fix_review "fix cljfmt"
 		fix
 		_commit_if_needed
+	elif [[ $GITHUB_EVENT_NAME == "check_suite" ]]; then
+		_should_check_suit
+		_requires_token
+		fix
+		_commit-if_needed
 	elif [[ $GITHUB_EVENT_NAME == "TODO_issue_comment" ]]; then
 		_requires_token
 		_should_fix_issue "fix $GITHUB_ACTION" || _should_fix_issue "fix cljfmt"
