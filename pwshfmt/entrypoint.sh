@@ -9,7 +9,6 @@ fix() {
 	pwsh -c 'Get-ChildItem -Path . -Include *.ps1,*.psm1 -Recurse | Edit-DTWBeautifyScript -NewLine CRLF'
 }
 
-set -x
 lint() {
 	fix
 	! _git_is_dirty
