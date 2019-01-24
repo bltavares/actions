@@ -1,6 +1,6 @@
 workflow "Check changes" {
   on = "push"
-  resolves = "lint"
+  resolves = ["lint", "fixes"]
 }
 
 workflow "On review" {
@@ -9,7 +9,7 @@ workflow "On review" {
 }
 
 action "lint" {
-  needs = ["shellcheck", "hadolint", "shfmt", "mdlint", "rubocop", "pwshfmt"]
+  needs = ["shellcheck", "hadolint", "mdlint"]
   uses = "actions/bin/sh@master"
   args = ["true"]
 }
@@ -28,27 +28,27 @@ action "hadolint" {
   uses = "./hadolint"
 }
 
-action "shfmt" {
-  uses = "./shfmt"
-  secrets = ["GITHUB_TOKEN"]
-}
-
 action "mdlint" {
   uses = "./mdlint"
 }
 
+action "shfmt" {
+  uses = "./shfmt"
+  args = ["autofix"]
+  secrets = ["GITHUB_TOKEN"]
+}
+
 action "rubocop" {
+  needs = ["shfmt"]
   uses = "./rubocop"
+  args = ["autofix"]
   secrets = ["GITHUB_TOKEN"]
 }
 
 action "pwshfmt" {
+  needs = ["rubocop"]
   uses = "./pwshfmt"
-  secrets = ["GITHUB_TOKEN"]
-}
-
-action "cljfmt" {
-  uses = "./cljfmt"
+  args = ["autofix"]
   secrets = ["GITHUB_TOKEN"]
 }
 

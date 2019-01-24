@@ -20,4 +20,4 @@ RUN apk --no-cache add \
 
 COPY lib.sh /lib.sh
 COPY entrypoint.sh /entrypoint.sh
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

@@ -9,10 +9,4 @@ lint() {
 	markdownlint .
 }
 
-main() {
-	if [[ ${GITHUB_EVENT_NAME} == "push" ]]; then
-		lint
-	fi
-}
-
-main "${@}"
+_lint_action "${@}"
