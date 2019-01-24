@@ -41,12 +41,17 @@ _commit_if_needed() {
 			echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"sha\": $(jq '.sha' <<<"$file_response")}" >>"$tmp_file"
 		done < <(git diff-files)
 
-		tree_payload="{\"base_tree\": \"${GITHUB_SHA}\", \"tree\": $(jq -s '.' "$tmp_file")}"
+		head_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
+			-X GET \
+			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF}")"
+		head_sha="$(jq '.object.sha' <<<"$head_response")"
+
+		tree_payload="{\"base_tree\": \"${head_sha}\", \"tree\": $(jq -s '.' "$tmp_file")}"
 		tree_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
 			-d "$tree_payload" \
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/trees")"
 
-		commit_payload="{\"message\": \"${GITHUB_ACTION}: lint fix\", \"tree\": $(jq '.sha' <<<"$tree_response"), \"parents\": [\"${GITHUB_SHA}\"]}"
+		commit_payload="{\"message\": \"${GITHUB_ACTION}: lint fix\", \"tree\": $(jq '.sha' <<<"$tree_response"), \"parents\": [\"${head_sha}\"]}"
 		commit_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
 			-d "$commit_payload" \
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/commits")"
