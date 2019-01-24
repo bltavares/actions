@@ -28,3 +28,9 @@ To keep all the `lib.sh` updated and validate the project itself, run:
 ```bash
 make
 ```
+
+If you need to skip linting, as it might need to copy the lib before properly linting:
+
+```bash
+make -W lint
+```

@@ -1,4 +1,11 @@
-ACTIONS = cljfmt shellcheck hadolint shfmt pwshfmt mdlint
+ACTIONS = cljfmt \
+	shellcheck \
+	hadolint \
+	shfmt \
+	pwshfmt \
+	mdlint \
+	rubocop \
+
 LIBS = $(addsuffix /lib.sh,$(ACTIONS))
 
 all: fix lint $(LIBS)
