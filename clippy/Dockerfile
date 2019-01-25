@@ -9,7 +9,7 @@ LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"
 LABEL "maintainer"="Bruno Tavares <connect+githubactions@bltavares.com>"
 
-RUN rustup component add clippy && cargo install cargo-fix
+RUN rustup component add clippy && cargo install cargo-fix --version 0.4.1
 
 RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
   curl=7.52* \
