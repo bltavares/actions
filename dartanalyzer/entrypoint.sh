@@ -18,4 +18,4 @@ lint() {
   fi
 }
 
-_lint_action dartanalyzer "${@}"
+_lint_action "${@}"
