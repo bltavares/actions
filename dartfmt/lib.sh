@@ -80,7 +80,7 @@ _commit_if_needed() {
 
 _lint_and_fix_action() {
 	if [[ $GITHUB_EVENT_NAME == "push" ]]; then
-		if [[ ${2-} == "autofix" ]]; then
+		if [[ ${2:-} == "autofix" ]]; then
 			_requires_token
 			fix
 			_commit_if_needed
@@ -99,6 +99,6 @@ _lint_and_fix_action() {
 
 _lint_action() {
 	if [[ ${GITHUB_EVENT_NAME} == "push" ]]; then
-		lint
+		lint "${@}"
 	fi
 }
