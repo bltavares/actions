@@ -1,12 +1,6 @@
-ACTIONS = cljfmt \
-	shellcheck \
-	hadolint \
-	shfmt \
-	pwshfmt \
-	mdlint \
-	rubocop \
+ACTIONS = $(filter-out docs/, $(wildcard */))
 
-LIBS = $(addsuffix /lib.sh,$(ACTIONS))
+LIBS = $(addsuffix lib.sh,$(ACTIONS))
 
 all: lint $(LIBS)
 
@@ -16,4 +10,7 @@ lint:
 $(LIBS) : lib.sh
 	cp $< $@
 
-.PHONY: all lint fix
+update:
+	touch lib.sh
+
+.PHONY: all lint fix update
