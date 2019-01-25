@@ -14,10 +14,13 @@ RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
   jq=1.* \
   bash=4.* \
   git=1:2.* \
+  unzip=6.* \
+  xz-utils=5.* \
   && rm -rf /var/lib/apt/lists/*
 
-RUN git clone --branch stable https://github.com/flutter/flutter.git /opt/flutter
 ENV PATH ${PATH}:/opt/flutter/bin
+RUN git clone --branch stable https://github.com/flutter/flutter.git /opt/flutter \
+  && flutter --help
 
 COPY lib.sh /lib.sh
 COPY entrypoint.sh /entrypoint.sh
