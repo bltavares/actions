@@ -7,11 +7,11 @@ set -x
 source /lib.sh
 
 fix() {
-	dartfmt -w --fix .
+  dartfmt -w --fix .
 }
 
 lint() {
-	dartfmt -n --fix . && dart-analyzer
+  dartfmt -n --fix .
 }
 
 _lint_and_fix_action dartfmt "${@}"
