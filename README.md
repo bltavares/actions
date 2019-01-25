@@ -10,17 +10,18 @@ Detailed documentation on how to use each action located on their folder.
 ### Linters and Formatters
 
 <!-- markdownlint-disable MD013 -->
-| Action                   | Description                   | Lint on Push | Fix with Review | Autofix on Push |
-|--------------------------|-------------------------------|--------------|-----------------|-----------------|
-| [cljfmt](cljfmt)         | Clojure formatter             | x            | x               | x               |
-| [pwshfmt](pwshfmt)       | Powershell Formatter          | x            | x               | x               |
-| [rubocop](rubocop)       | Ruby linter                   | x            | x               | x               |
-| [shfmt](shfmt)           | Shell formatter               | x            | x               | x               |
-| [tslint](tslint)         | TypeScript lint and formatter | x            | x               | x               |
-| [hadolint](hadolint)     | Dockerfile linter             | x            |                 |                 |
-| [kubeval](kubeval)       | Kubernets (k8s) linter        | x            |                 |                 |
-| [mdlint](mdlint)         | Markdown linting              | x            |                 |                 |
-| [shellcheck](shellcheck) | Bash linter                   | x            |                 |                 |
+| Action                   | Description                         | Lint on Push | Fix with Review | Autofix on Push |
+|--------------------------|-------------------------------------|--------------|-----------------|-----------------|
+| [cljfmt](cljfmt)         | Clojure formatter                   | x            | x               | x               |
+| [dartfmt](dartfmt)       | Dart (and Flutter) formatter/linter | x            | x               | x               |
+| [pwshfmt](pwshfmt)       | Powershell Formatter                | x            | x               | x               |
+| [rubocop](rubocop)       | Ruby linter                         | x            | x               | x               |
+| [shfmt](shfmt)           | Shell formatter                     | x            | x               | x               |
+| [tslint](tslint)         | TypeScript lint and formatter       | x            | x               | x               |
+| [hadolint](hadolint)     | Dockerfile linter                   | x            |                 |                 |
+| [kubeval](kubeval)       | Kubernets (k8s) linter              | x            |                 |                 |
+| [mdlint](mdlint)         | Markdown linting                    | x            |                 |                 |
+| [shellcheck](shellcheck) | Bash linter                         | x            |                 |                 |
 <!-- markdownlint-enable MD013 -->
 
 #### Linters on push
