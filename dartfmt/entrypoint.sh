@@ -6,11 +6,11 @@ set -euo pipefail
 source /lib.sh
 
 fix() {
-  dartfmt -w --fix .
+	dartfmt -w --fix .
 }
 
 lint() {
-  dartfmt -n --fix .
+	dartfmt -n --fix .
 }
 
 _lint_and_fix_action dartfmt "${@}"
