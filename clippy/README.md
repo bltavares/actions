@@ -10,6 +10,13 @@ and [cargo-fix](https://github.com/rust-lang-nursery/rustfix)
 [so far](https://github.com/rust-lang-nursery/rustfix/issues/130) is not
 supporting it as well, but it should in the future.
 
+This action requires access to all dependencies of the project,
+as the underlying tools will compile to lint. IT might need environment
+variables to access private dependencies.
+
+It is quite common that the image might need some C libraries and headers.
+If that is the case, send a Pull Request to include it as a dependency.
+
 ## Fixes on Pull Request review
 
 This action provides automated fixes using Pull Request review comments.
