@@ -1,15 +1,15 @@
-# rubocop action
+# rustfmt action
 
 ## Validations on Push
 
-This actions will check the formating of Ruby files in the project, using
-[rubocop](https://github.com/rubocop-hq/rubocop)
+This actions will check the formating of a Rust project, using
+[rustfmt](https://github.com/rust-lang/rustfmt)
 
 ## Fixes on Pull Request review
 
 This action provides automated fixes using Pull Request review comments.
 
-If the comment starts with `fix $action_name` or `fix rubocop`, a new commit will
+If the comment starts with `fix $action_name` or `fix rustfmt`, a new commit will
 be added to the branch with the automated fixes applied.
 
 **Supports**: autofix on push
@@ -19,17 +19,16 @@ be added to the branch with the automated fixes applied.
 ```hcl
 workflow "on push" {
   on = "push"
-  resolves = ["rubocop"]
+  resolves = ["rustfmt"]
 }
 
-# Used for fix on review
 workflow "on review" {
-  resolves = ["rubocop"]
+  resolves = ["rustfmt"]
   on = "pull_request_review"
 }
 
-action "rubocop" {
-  uses = "bltavares/actions/rubocop@master"
+action "rustfmt" {
+  uses = "bltavares/actions/rustfmt@master"
   # Enable autofix on push
   # args = ["autofix"]
   # Used for pushing changes for `fix` comments on review
