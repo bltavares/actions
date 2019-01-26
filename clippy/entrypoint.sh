@@ -10,7 +10,7 @@ fix() {
 }
 
 lint() {
-	cargo clippy --all-targets --all-features
+	cargo clippy --all-targets --all-features -- -W forbid
 }
 
 _lint_and_fix_action clippy "${@}"
