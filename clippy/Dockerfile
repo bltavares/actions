@@ -17,6 +17,8 @@ RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
   bash=4.4* \
   git=1:2.11* \
   libssl-dev=1.1* \
+  zlib1g-dev=1:1.2* \
+  pkg-config=0.29* \
   && rm -rf /var/lib/apt/lists/*
 
 COPY lib.sh /lib.sh
