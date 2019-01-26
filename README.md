@@ -124,7 +124,7 @@ parallel linters running.
 ```hcl
 workflow "on push" {
   on = "push"
-  resolves = ["linters", "fixers"]
+  resolves = ["linters", "autofixers"]
 }
 
 action "linters" {
@@ -133,7 +133,7 @@ action "linters" {
   args = ["echo Linters ok"]
 }
 
-action "fixers" {
+action "autofixers" {
   needs = ["shfmt", "cljfmt"]
   uses = "actions/bin/sh@master"
   args = ["echo Fixers ok"]
@@ -143,7 +143,7 @@ action "shfmt" {
   uses = "bltavares/actions/shfmt@master"
   args = ["autofix"]
   secrets = ["GITHUB_TOKEN"]
-  needs = ["cljfmt"]"
+  needs = ["cljfmt"]
 }
 
 action "cljfmt" {
@@ -156,8 +156,8 @@ action "mdlint" {
   uses = "bltavares/actions/mdlint@master"
 }
 
-action "hadolint" {
-  uses = "bltavares/actions/hadolint@master"
+action "shellcheck" {
+  uses = "bltavares/actions/shellcheck@master"
 }
 ```
 
@@ -171,6 +171,86 @@ And would result on the following example on pushes:
 
 You may validate the ordering of fixers using `act -l` locally, provided by
 [nektos/act](https://github.com/nektos/act).
+
+#### Restricting execution of autofixers on push
+
+Autofixers listening to `push` events will execute both on pull requests,
+as well as commits pointing to master. If there is no restriction, on master commits
+the autofixers will also commit the changes to master.
+
+This might not be the workflow you are looking for. You may use
+[actions/bin/filter](https://github.com/actions/bin/tree/master/filter) to restrict
+wheter autofixers should run or not, leveraing the [ref filter](https://github.com/actions/bin/tree/master/filter#ref)
+and [branch filter](https://github.com/actions/bin/tree/master/filter#branch)
+
+Here is one example, using autofixers only on PRs, while using them as linters
+on master.
+
+```hcl
+workflow "on push" {
+  on = "push"
+  resolves = ["linters", "autofixers"]
+}
+
+action "linters" {
+  needs = ["mdlint", "shellcheck", "shfmt-lint", "cljfmt-lint"]
+  uses = "actions/bin/sh@master"
+  args = ["echo Linters ok"]
+}
+
+action "autofixers" {
+  needs = ["shfmt", "cljfmt"]
+  uses = "actions/bin/sh@master"
+  args = ["echo Fixers ok"]
+}
+
+action "pr filter" {
+  uses = "actions/bin/filter@master"
+  args = "ref refs/pulls/*"
+}
+
+action "master filter" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
+}
+
+action "fixers-lint" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
+}
+
+action "shfmt" {
+  uses = "bltavares/actions/shfmt@master"
+  args = ["autofix"]
+  secrets = ["GITHUB_TOKEN"]
+  needs = ["cljfmt", "pr filter"]
+}
+
+action "cljfmt" {
+  uses = "bltavares/actions/cljfmt@master"
+  args = ["autofix"]
+  secrets = ["GITHUB_TOKEN"]
+  needs = ["pr filter"]
+}
+
+action "shfmt-lint" {
+  uses = "bltavares/actions/shfmt@master"
+  needs = ["master filter"]
+}
+
+action "cljfmt-lint" {
+  uses = "bltavares/actions/cljfmt@master"
+  needs = ["master filter"]
+}
+
+action "mdlint" {
+  uses = "bltavares/actions/mdlint@master"
+}
+
+action "shellcheck" {
+  uses = "bltavares/actions/shellcheck@master"
+}
+```
 
 ## Running locally
 
