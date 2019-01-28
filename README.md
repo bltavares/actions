@@ -104,7 +104,7 @@ workflow "on reviews" {
 
 action "shfmt" {
   uses = "bltavares/actions/shfmt@master"
-  args = ["autofix"]"
+  args = ["autofix"]
   secrets = ["GITHUB_TOKEN"]
 }
 ```
