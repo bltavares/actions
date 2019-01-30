@@ -11,6 +11,9 @@ as well as any variable needed to access all the dependencies of the project.
 Given that this plugin uses `lein cljfmt`, it might need extra environment
 variable and secrets, such as `AWS_ACCESS_KEY_ID` and `AWS_ACCESS_KEY_KEY`.
 
+If you'd rather not install the dependencies, and prefer to use an external tool
+instead of a plugin, check [zprint](../zprint).
+
 ## Fixes on Pull Request review
 
 This action provides automated fixes using Pull Request review comments.
