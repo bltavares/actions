@@ -1,4 +1,4 @@
-FROM clojure:lein-alpine
+FROM clojure:tools-deps-alpine
 
 LABEL "com.github.actions.name"="cljfmt"
 LABEL "com.github.actions.description"="Provides linting and fixes using cljfmt"
@@ -8,6 +8,8 @@ LABEL "com.github.actions.color"="purple"
 LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"
 LABEL "maintainer"="Bruno Tavares <connect+githubactions@bltavares.com>"
+
+RUN clojure -Sdeps '{:deps {lein-cljfmt {:mvn/version "0.6.4"}}}' -e ':ok'
 
 RUN apk --no-cache add \
   curl=7.61.1-r1 \

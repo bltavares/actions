@@ -2,17 +2,20 @@
 
 ## Validations on Push
 
-This actions will check the formating of the project, using
+This actions will check the formatting of the project, using
 [cljfmt](https://github.com/weavejester/cljfmt).
 
-`cljfmt` plugin required to be installed on your project,
-as well as any variable needed to access all the dependencies of the project.
+This action make use of `tool.deps` instead of `lein`, which provides global
+execution of `cljfmt` without needing to use the `lein` plugin. This way, you
+are able to format the project without providing access to any project
+dependencies.
 
-Given that this plugin uses `lein cljfmt`, it might need extra environment
-variable and secrets, such as `AWS_ACCESS_KEY_ID` and `AWS_ACCESS_KEY_KEY`.
+For configuration, this action will inspect the existence of the following files on the project, and pass them in to `cljfmt`:
 
-If you'd rather not install the dependencies, and prefer to use an external tool
-instead of a plugin, check [zprint](../zprint).
+- `.cljfmt-alias.edn`: [:alias-map](https://github.com/weavejester/cljfmt#configuration) configuration declarations
+- `.cljfmt-indent.edn`: [:indents](https://github.com/weavejester/cljfmt#indentation-rules) configuration declarations
+
+Alternatively, there is [zprint](../zprint) action available.
 
 ## Fixes on Pull Request review
 
