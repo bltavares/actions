@@ -10,10 +10,16 @@ execution of `cljfmt` without needing to use the `lein` plugin. This way, you
 are able to format the project without providing access to any project
 dependencies.
 
-For configuration, this action will inspect the existence of the following files on the project, and pass them in to `cljfmt`:
+For configuration, this action will inspect the existence of the following files
+on the project, and pass them in to `cljfmt`:
 
-- `.cljfmt-alias.edn`: [:alias-map](https://github.com/weavejester/cljfmt#configuration) configuration declarations
-- `.cljfmt-indent.edn`: [:indents](https://github.com/weavejester/cljfmt#indentation-rules) configuration declarations
+- `.cljfmt-alias.edn`
+  [:alias-map](https://github.com/weavejester/cljfmt#configuration) map config
+  content
+
+- `.cljfmt-indent.edn`
+  [:indents](https://github.com/weavejester/cljfmt#indentation-rules) map config
+  content
 
 Alternatively, there is [zprint](../zprint) action available.
 
