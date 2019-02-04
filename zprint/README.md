@@ -2,11 +2,8 @@
 
 ## Validations on Push
 
-This actions will check the formating of the project, using
+This actions will check the formatting of the project, using
 [boot-fmt](https://github.com/pesterhazy/boot-fmt).
-
-In contrast of [cljfmt](../cljfmt), this action does not require installation of
-the projects dependencies, as it has global execution access.
 
 The container configures [zprint](https://github.com/kkinnear/zprint) to search
 for configuration files in the current project, allowing you to commit the
@@ -14,6 +11,8 @@ formatting rules as part of the project.
 
 For more configuration details, check upstream
 [documentation](https://github.com/kkinnear/zprint#how-to-configure-zprint)
+
+Alternatively, there is also [cljfmt](../cljfmt) action available.
 
 ## Fixes on Pull Request review
 
