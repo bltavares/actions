@@ -32,6 +32,8 @@ workflow "on push" {
 }
 
 # Used for fix on review
+# Don't enable if you plan using autofix on push
+# Or there might be race conditions
 workflow "on review" {
   resolves = ["zprint"]
   on = "pull_request_review"

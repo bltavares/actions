@@ -34,6 +34,9 @@ workflow "on push" {
   resolves = ["clippy"]
 }
 
+# Used for fix on review
+# Don't enable if you plan using autofix on push
+# Or there might be race conditions
 workflow "on review" {
   resolves = ["clippy"]
   on = "pull_request_review"
