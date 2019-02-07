@@ -13,10 +13,10 @@ LABEL "maintainer"="Bruno Tavares <connect+githubactions@bltavares.com>"
 COPY --from=kubeval /kubeval /bin/kubeval
 
 RUN apk --no-cache add \
-  curl=7.61.1-r1 \
-  jq=1.6_rc1-r1 \
-  bash=4.4.19-r1 \
-  git=2.18.1-r0
+  curl~=7 \
+  jq~=1.6 \
+  bash~=4 \
+  git~=2
 
 COPY lib.sh /lib.sh
 COPY entrypoint.sh /entrypoint.sh
