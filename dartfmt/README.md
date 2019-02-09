@@ -22,6 +22,9 @@ workflow "on push" {
   resolves = ["dartfmt"]
 }
 
+# Used for fix on review
+# Don't enable if you plan using autofix on push
+# Or there might be race conditions
 workflow "on review" {
   resolves = ["dartfmt"]
   on = "pull_request_review"
