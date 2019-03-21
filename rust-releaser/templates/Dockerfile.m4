@@ -1,4 +1,4 @@
-FROM japaric/`'TARGET
+FROM japaric/COMPILE_TARGET
 
 ENV RUSTUP_HOME=/usr/local/rustup \
   CARGO_HOME=/usr/local/cargo \
@@ -22,10 +22,12 @@ RUN curl https://sh.rustup.rs -sSf -o /rustup.sh \
   && chmod -R a+w $RUSTUP_HOME $CARGO_HOME
 
 # Cross compilation target toolchain
-RUN rustup target add `'TARGET 
+RUN rustup target add COMPILE_TARGET
 
 # And tool for defining the type of lib to produce: dynamic OR static
 RUN cargo install --force cargo-crate-type
 
 COPY entrypoint.sh /entrypoint.sh
+COPY lib.sh /lib.sh
+COPY releaser.sh /releaser.sh
 ENTRYPOINT ["/entrypoint.sh"]

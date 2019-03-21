@@ -24,5 +24,10 @@ RUN curl https://sh.rustup.rs -sSf -o /rustup.sh \
 # Cross compilation target toolchain
 RUN rustup target add x86_64-unknown-linux-musl
 
+# And tool for defining the type of lib to produce: dynamic OR static
+RUN cargo install --force cargo-crate-type
+
 COPY entrypoint.sh /entrypoint.sh
+COPY lib.sh /lib.sh
+COPY releaser.sh /releaser.sh
 ENTRYPOINT ["/entrypoint.sh"]

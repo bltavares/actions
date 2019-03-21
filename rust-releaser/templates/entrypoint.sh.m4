@@ -1,6 +1,21 @@
 #!/usr/bin/env bash
 
-TARGET="`'TARGET"
+set -euo pipefail
+set -x
 
-source lib.sh
-source compile.sh
+TARGET="COMPILE_TARGET"
+PKG_NAME="${PKG_NAME:-$CRATE_NAME}"
+CRATE_NAME="${CRATE_NAME:-$PKG_NAME}"
+TYPE="${TYPE:-bin}"
+TAG="master"
+
+env
+
+source /lib.sh
+source /releaser.sh
+
+type=$(build-type)
+
+$type-compile
+$type-deploy
+package
