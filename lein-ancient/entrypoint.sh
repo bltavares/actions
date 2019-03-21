@@ -6,11 +6,11 @@ set -euo pipefail
 source /lib.sh
 
 fix() {
-    lein ancient upgrade :no-tests :only :autobump
+	lein ancient upgrade :no-tests :only :autobump
 }
 
 lint() {
-    lein ancient upgrade :no-tests :only :autobump
+	lein ancient upgrade :no-tests :only :autobump
 }
 
 _lint_and_fix_action lein-ancient "${@}"
