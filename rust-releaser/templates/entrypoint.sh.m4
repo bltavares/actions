@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
+TARGET="`'TARGET"
 
-cargo build --release --target `'TARGET
+source lib.sh
+source compile.sh
