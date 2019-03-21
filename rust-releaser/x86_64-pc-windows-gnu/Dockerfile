@@ -1,4 +1,4 @@
-FROM japaric/COMPILE_TARGET
+FROM japaric/x86_64-pc-windows-gnu
 
 ENV RUSTUP_HOME=/usr/local/rustup \
   CARGO_HOME=/usr/local/cargo \
@@ -21,7 +21,7 @@ RUN curl https://sh.rustup.rs -sSf -o /rustup.sh \
   && chmod -R a+w $RUSTUP_HOME $CARGO_HOME
 
 # Cross compilation target toolchain
-RUN rustup target add COMPILE_TARGET
+RUN rustup target add x86_64-pc-windows-gnu
 
 # And tool for defining the type of lib to produce: dynamic OR static
 RUN cargo install --force cargo-crate-type

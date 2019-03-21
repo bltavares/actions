@@ -7,10 +7,9 @@ ENV RUSTUP_HOME=/usr/local/rustup \
 
 # Action toolchain
 RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
-  curl=7.* \
-  jq=1.* \
-  bash=4.* \
-  git=1:2.* \
+    curl=7.* \
+    bash=4.* \
+    git=1:* \
   && rm -rf /var/lib/apt/lists/*
 
 # Rust toolchain

@@ -1,4 +1,6 @@
-RUST_RELEASE_TARGETS := x86_64-unknown-linux-musl
+RUST_RELEASE_TARGETS := x86_64-unknown-linux-musl \
+                        x86_64-unknown-linux-gnu \
+                        x86_64-pc-windows-gnu
 
 DOCKERFILES := $(addsuffix /Dockerfile,$(RUST_RELEASE_TARGETS))
 ENTRYPOINTS := $(addsuffix /entrypoint.sh,$(RUST_RELEASE_TARGETS))
