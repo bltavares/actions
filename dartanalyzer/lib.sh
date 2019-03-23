@@ -170,8 +170,8 @@ _release_id() {
 	if [[ -z ${RELEASE_ID} ]] || [[ ${RELEASE_ID} == "null" ]]; then
 		RELEASE_ID="$(curl --fail \
 			-H "Authorization: token ${GITHUB_TOKEN}" \
-			"https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/$TAG" |
-			jq --raw-output '.id')"
+			"https://api.github.com/repos/${GITHUB_REPOSITORY}/releases | \
+			jq --raw-output ".[] | select(.tag_name == \"$TAG\") | .id")"
 	fi
 
 	echo "$RELEASE_ID"
