@@ -125,7 +125,6 @@ _read_last_tag() {
 }
 
 _write_tag() {
-<<<<<<< HEAD
 	if [[ -z ${1:-} ]]; then
 		version="$(cat)"
 	else
