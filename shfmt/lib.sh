@@ -125,7 +125,7 @@ _read_last_tag() {
 }
 
 _write_tag() {
-    if [[ -z $1 ]]; then
+    if [[ -z "${1:-}" ]]; then
 	      version="$(cat)"
     else
 	      version="$1"
@@ -134,7 +134,7 @@ _write_tag() {
 }
 
 _autobump_version() {
-    if [[ -z $1 ]]; then
+    if [[ -z "${1:-}" ]]; then
 	      version="$(cat)"
     else
 	      version="$1"
