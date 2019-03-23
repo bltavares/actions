@@ -19,6 +19,6 @@ $type-compile
 $type-deploy
 package
 
-if _should_release; then
+if _has_token; then
     publish
 fi

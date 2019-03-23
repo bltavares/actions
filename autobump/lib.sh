@@ -1,10 +1,14 @@
 #!/bin/bash
 
 _requires_token() {
-	if [[ -z $GITHUB_TOKEN ]]; then
+  if [[ -z "${GITHUB_TOKEN:-}" ]]; then
 		echo "Set the GITHUB_TOKEN env variable."
 		exit 1
 	fi
+}
+
+_has_token() {
+    [[ -n "${GITHUB_TOKEN:-}" ]]
 }
 
 _should_fix_issue() {
@@ -143,14 +147,6 @@ _autobump_version() {
 		major=$((major + 1))
 	fi
 	echo "${major:-0}.${minor:-0}.${patch:-0}"
-}
-
-_should_release() {
-	IS_DRAFT=$(jq --raw-output '.release.draft' "$GITHUB_EVENT_PATH")
-	if [ "$IS_DRAFT" = true ] || [[ -z ${GITHUB_TOKEN:-} ]]; then
-		return 1
-	fi
-	return 0
 }
 
 _release_id() {
