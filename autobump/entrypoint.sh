@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
 _requires_token
 
 _read_last_tag | _autobump_version | _write_tag
