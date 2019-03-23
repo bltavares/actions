@@ -1,14 +1,14 @@
 #!/bin/bash
 
 _requires_token() {
-  if [[ -z "${GITHUB_TOKEN:-}" ]]; then
+	if [[ -z ${GITHUB_TOKEN:-} ]]; then
 		echo "Set the GITHUB_TOKEN env variable."
 		exit 1
 	fi
 }
 
 _has_token() {
-    [[ -n "${GITHUB_TOKEN:-}" ]]
+	[[ -n ${GITHUB_TOKEN:-} ]]
 }
 
 _should_fix_issue() {
@@ -150,22 +150,22 @@ _autobump_version() {
 }
 
 _release_id() {
-	  local RELEASE_ID="$(jq --raw-output '.release.id' "$GITHUB_EVENT_PATH")"
-    if [[ "${RELEASE_ID}" == "null" ]]; then
-       RELEASE_ID="$(curl --fail \
-         -H "Authorization: token ${GITHUB_TOKEN}" \
-         "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/$TAG" \
-         | jq --raw-output '.id')"
-    fi
+	local RELEASE_ID="$(jq --raw-output '.release.id' "$GITHUB_EVENT_PATH")"
+	if [[ ${RELEASE_ID} == "null" ]]; then
+		RELEASE_ID="$(curl --fail \
+			-H "Authorization: token ${GITHUB_TOKEN}" \
+			"https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/$TAG" |
+			jq --raw-output '.id')"
+	fi
 
-    echo "$RELEASE_ID"
+	echo "$RELEASE_ID"
 }
 
 _upload_release() {
 	local FILENAME="$1"
 	local CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "${FILENAME}")"
 	local CONTENT_TYPE_HEADER="Content-Type: ${2:-application/zip}"
-  local RELEASE_ID="$(_release_id)"
+	local RELEASE_ID="$(_release_id)"
 	local UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=${FILENAME}"
 
 	curl \

@@ -11,14 +11,14 @@ _is_automated_event() {
 }
 
 _requires_token() {
-  if [[ -z "${GITHUB_TOKEN:-}" ]]; then
+	if [[ -z ${GITHUB_TOKEN:-} ]]; then
 		echo "Set the GITHUB_TOKEN env variable."
 		exit 1
 	fi
 }
 
 _has_token() {
-    [[ -n "${GITHUB_TOKEN:-}" ]]
+	[[ -n ${GITHUB_TOKEN:-} ]]
 }
 
 _should_fix_issue() {
