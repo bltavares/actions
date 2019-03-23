@@ -184,7 +184,7 @@ _upload_release() {
 	local RELEASE_ID="$(_release_id)"
 	local UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=$(basename "${FILENAME}")"
 
-	curl \
+	curl --fail \
 		-XPOST \
 		-H "Authorization: token ${GITHUB_TOKEN}" \
 		-H "${CONTENT_LENGTH_HEADER}" \
