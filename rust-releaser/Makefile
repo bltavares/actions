@@ -6,6 +6,7 @@ DOCKERFILES := $(addsuffix /Dockerfile,$(RUST_RELEASE_TARGETS))
 ENTRYPOINTS := $(addsuffix /entrypoint.sh,$(RUST_RELEASE_TARGETS))
 LIBS := $(addsuffix /lib.sh,$(RUST_RELEASE_TARGETS))
 RELEASERS := $(addsuffix /releaser.sh,$(RUST_RELEASE_TARGETS))
+IMAGES := $(addprefix docker-,$(RUST_RELEASE_TARGETS))
 
 all: $(DOCKERFILES) $(ENTRYPOINTS) $(LIBS) $(RELEASERS)
 
@@ -24,3 +25,11 @@ $(LIBS): %/lib.sh: ../lib.sh % Makefile
 
 $(RELEASERS): %/releaser.sh: templates/releaser.sh % Makefile
 	cp $< $@
+
+docker: $(IMAGES)
+
+$(IMAGES): docker-%: Makefile
+	docker build $* --pull -t rustreleaser/action:$*
+	docker push rustreleaser/action:$*
+
+.PHONY: all docker $(IMAGES)

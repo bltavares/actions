@@ -20,5 +20,5 @@ $type-deploy
 package
 
 if _should_release; then
-	publish
+    publish
 fi
