@@ -134,7 +134,7 @@ _write_tag() {
 	git config --global user.name "github-actions[bot]"
 	git config --global user.email "github-actions[bot]@users.noreply.github.com"
 	git tag -f -a "$version" -m "Release ${version}"
-  echo "${version}"
+	echo "${version}"
 }
 
 _autobump_version() {
