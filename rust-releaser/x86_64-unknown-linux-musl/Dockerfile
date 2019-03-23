@@ -1,4 +1,4 @@
-FROM japaric/x86_64-unknown-linux-musl
+FROM rustreleaser/cross:x86_64-unknown-linux-musl
 
 ENV RUSTUP_HOME=/usr/local/rustup \
   CARGO_HOME=/usr/local/cargo \
@@ -10,6 +10,9 @@ RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
     curl=7.* \
     bash=4.* \
     git=1:* \
+    zip=3* \
+  && curl -sSl https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o /usr/bin/jq \
+  && chmod +x /usr/bin/jq \
   && rm -rf /var/lib/apt/lists/*
 
 # Rust toolchain

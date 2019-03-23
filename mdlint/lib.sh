@@ -118,3 +118,66 @@ _lint_action() {
 		lint "${@}"
 	fi
 }
+
+_read_last_tag() {
+    tag="$(git describe --tags --abbrev=0 --first-parent)"
+    echo "${tag%%~*}"
+}
+
+_write_tag() {
+    if [[ -z $1 ]]; then
+	      version="$(cat)"
+    else
+	      version="$1"
+    fi
+    git tag -f -a "$version" -m "Release ${version}"
+}
+
+_autobump_version() {
+    if [[ -z $1 ]]; then
+	      version="$(cat)"
+    else
+	      version="$1"
+    fi
+
+    IFS="." read -r major minor patch <<<"$version"
+
+    patch=$((patch + 1))
+
+    if [[ $patch -gt 999 ]]; then
+	      patch=0
+	      minor=$((minor + 1))
+    fi
+
+    if [[ $minor -gt 999 ]]; then
+	      patch=0
+	      minor=0
+	      major=$((major + 1))
+    fi
+    echo "${major}.${minor}.${patch}"
+}
+
+_should_release() {
+    IS_DRAFT=$(jq --raw-output '.release.draft' "$GITHUB_EVENT_PATH")
+    if [ "$IS_DRAFT" = true ] || [[ -z "${GITHUB_TOKEN:-}" ]]; then
+        return 1
+    fi
+    return 0
+}
+
+_upload_release() {
+    local FILENAME="$1"
+    local CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "${FILENAME}")"
+    local CONTENT_TYPE_HEADER="Content-Type: ${2:-application/zip}"
+    local RELEASE_ID=$(jq --raw-output '.release.id' $GITHUB_EVENT_PATH)
+    local UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=${FILENAME}"
+
+    curl \
+        -sSL \
+        -XPOST \
+        -H "Authorization: token ${GITHUB_TOKEN}" \
+        -H "${CONTENT_LENGTH_HEADER}" \
+        -H "${CONTENT_TYPE_HEADER}" \
+        --upload-file "${FILENAME}" \
+        "${UPLOAD_URL}"
+}

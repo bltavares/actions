@@ -1,24 +1,20 @@
-ACTIONS = $(filter-out docs/ rust-relaser/ recipes/, $(wildcard */))
-
-LIBS = $(addsuffix lib.sh,$(ACTIONS))
+NOT_ACTIONS := docs/ rust-releaser/ recipes/
+ACTIONS := $(filter-out $(NOT_ACTIONS), $(wildcard */))
+LIBS := $(addsuffix lib.sh,$(ACTIONS))
 
 all: | $(LIBS) rust-releaser lint
 
 lint:
-<<<<<<< HEAD
-	act -a lint
-=======
 	echo $(ACTIONS)
-	act
->>>>>>> shfmt: lint fix
+	act -a lint
 
 $(LIBS) : lib.sh
 	cp $< $@
 
-rust-relaser:
+rust-releaser:
 	$(MAKE) -C rust-releaser
 
 update:
 	touch lib.sh
 
-.PHONY: all lint fix update
+.PHONY: all lint fix update rust-releaser

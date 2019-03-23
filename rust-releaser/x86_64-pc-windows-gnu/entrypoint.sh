@@ -3,19 +3,22 @@
 set -euo pipefail
 set -x
 
+source /lib.sh
+source /releaser.sh
+
 TARGET="x86_64-pc-windows-gnu"
 PKG_NAME="${PKG_NAME:-$CRATE_NAME}"
 CRATE_NAME="${CRATE_NAME:-$PKG_NAME}"
 TYPE="${TYPE:-bin}"
-TAG="master"
+TAG="${TAG:-$(_read_last_tag)}"
 
 env
 
-source /lib.sh
-source /releaser.sh
-
 type=$(build-type)
-
 $type-compile
 $type-deploy
 package
+
+if _should_release; then
+    publish
+fi
