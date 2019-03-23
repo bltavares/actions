@@ -6,9 +6,7 @@ source /lib.sh
 
 _requires_token
 
-_read_last_tag | _autobump_version | _write_tag
-
-tag="$(_read_last_tag)"
+tag="$(_read_last_tag | _autobump_version | _write_tag)"
 
 curl --fail \
 	-H "Authorization: token ${GITHUB_TOKEN}" \
