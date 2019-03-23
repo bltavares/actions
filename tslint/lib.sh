@@ -130,6 +130,9 @@ _write_tag() {
     else
 	      version="$1"
     fi
+
+	  git config --global user.name "github-actions[bot]"
+	  git config --global user.email "github-actions[bot]@users.noreply.github.com"
     git tag -f -a "$version" -m "Release ${version}"
 }
 
@@ -154,7 +157,7 @@ _autobump_version() {
 	      minor=0
 	      major=$((major + 1))
     fi
-    echo "${major}.${minor}.${patch}"
+    echo "${major:-0}.${minor:-0}.${patch:-0}"
 }
 
 _should_release() {
