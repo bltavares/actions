@@ -17,7 +17,7 @@ on the project, and pass them in to `cljfmt`:
   [:alias-map](https://github.com/weavejester/cljfmt#configuration) map config
   content
 
-- `.cljfmt-indent.edn`
+- `.cljfmt-indents.edn`
   [:indents](https://github.com/weavejester/cljfmt#indentation-rules) map config
   content
 
