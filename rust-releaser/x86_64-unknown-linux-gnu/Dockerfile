@@ -11,7 +11,7 @@ RUN apt-get update -qq && apt-get install -qqy --no-install-recommends \
     bash=4.* \
     git=1:* \
     zip=3* \
-  && curl -sSl https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o /usr/bin/jq \
+  && curl -fsSL https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o /usr/bin/jq \
   && chmod +x /usr/bin/jq \
   && rm -rf /var/lib/apt/lists/*
 

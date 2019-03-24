@@ -20,5 +20,5 @@ $type-deploy
 package
 
 if _has_token; then
-	publish
+    publish
 fi
