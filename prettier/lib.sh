@@ -94,7 +94,6 @@ _lint_and_fix_action() {
 		fix
 		_commit_if_needed
 	fi
-
 }
 
 _lint_action() {

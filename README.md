@@ -15,7 +15,8 @@ Detailed documentation on how to use each action located on their folder.
 | [clippy](clippy)             | Rust linter                   | x            | x (Partial fixes) | x (Partial fixes) |
 | [cljfmt](cljfmt)             | Clojure formatter             | x            | x                 | x                 |
 | [dartfmt](dartfmt)           | Dart (and Flutter) formatter  | x            | x                 | x                 |
-| [pwshfmt](pwshfmt)           | Powershell Formatter          | x            | x                 | x                 |
+| [pwshfmt](pwshfmt)           | Powershell Formatter          | x            | x (Partial fixes) | x (Partial fixes) |
+| [prettier](pretter)          | An opinionated code formatter | x            | x                 | x                 |
 | [rubocop](rubocop)           | Ruby linter                   | x            | x                 | x                 |
 | [rustfmt](rustfmt)           | Rust formatter                | x            | x                 | x                 |
 | [shfmt](shfmt)               | Shell formatter               | x            | x                 | x                 |
