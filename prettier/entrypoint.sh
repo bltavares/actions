@@ -6,7 +6,7 @@ set -euo pipefail
 source /lib.sh
 
 lint() {
-    git --no-pager diff origin/master --name-only | xargs npx prettier --check
+	git --no-pager diff origin/master --name-only | xargs npx prettier --check
 }
 
 fix() {
