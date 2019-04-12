@@ -6,11 +6,11 @@ set -euo pipefail
 source /lib.sh
 
 lint() {
-	git --no-pager diff origin/master --name-only | xargs npx prettier --check
+    _git_changed_files | xargs npx prettier --check
 }
 
 fix() {
-	git --no-pager diff origin/master --name-only | xargs npx prettier --write
+	_git_changed_files | xargs npx prettier --write
 }
 
 _lint_and_fix_action prettier "${@}"
