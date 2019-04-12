@@ -1,5 +1,15 @@
 #!/bin/bash
 
+_is_automated_event() {
+    AUTOFIX_EVENTS=${AUTOFIX_EVENTS:-push}
+
+    if echo "${GITHUB_EVENT_NAME}" | grep -Eq "^$AUTOFIX_EVENTS$" ; then
+        return 0;
+    fi
+
+    return 1
+}
+
 _requires_token() {
 	if [[ -z $GITHUB_TOKEN ]]; then
 		echo "Set the GITHUB_TOKEN env variable."
@@ -85,7 +95,7 @@ _commit_if_needed() {
 }
 
 _lint_and_fix_action() {
-	if [[ $GITHUB_EVENT_NAME == "push" || $GITHUB_EVENT_NAME == "pull_request" ]]; then
+	if _is_automated_event ; then
 		if [[ ${2:-} == "autofix" ]]; then
 			_requires_token
 			fix
