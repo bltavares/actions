@@ -31,7 +31,7 @@ _git_is_dirty() {
 _git_changed_files() {
 	local -r base_ref="$(jq --raw-output '.base_ref // "origin/" + (.pull_request.base.ref // "master")' "${GITHUB_EVENT_PATH}")"
 
-    git --no-pager diff "${base_ref}" --name-only
+	git --no-pager diff "${base_ref}" --name-only
 }
 
 _local_commit() {
@@ -85,7 +85,7 @@ _commit_if_needed() {
 }
 
 _lint_and_fix_action() {
-    if [[ $GITHUB_EVENT_NAME == "push" || $GITHUB_EVENT_NAME == "pull_request" ]]; then
+	if [[ $GITHUB_EVENT_NAME == "push" || $GITHUB_EVENT_NAME == "pull_request" ]]; then
 		if [[ ${2:-} == "autofix" ]]; then
 			_requires_token
 			fix

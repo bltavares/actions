@@ -6,7 +6,7 @@ set -euo pipefail
 source /lib.sh
 
 lint() {
-    _git_changed_files | xargs npx prettier --check
+	_git_changed_files | xargs npx prettier --check
 }
 
 fix() {
