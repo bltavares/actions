@@ -3,7 +3,7 @@
 _is_automated_event() {
 	AUTOFIX_EVENTS=${AUTOFIX_EVENTS:-push}
 
-	if [[ "${GITHUB_EVENT_NAME}" =~ ^($AUTOFIX_EVENTS)$; then
+	if [[ "${GITHUB_EVENT_NAME}" =~ "^($AUTOFIX_EVENTS)$" ]]; then
         return 0
 	fi
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 
 _is_automated_event() {
-    AUTOFIX_EVENTS=${AUTOFIX_EVENTS:-push}
+	AUTOFIX_EVENTS=${AUTOFIX_EVENTS:-push}
 
-    if [[ "${GITHUB_EVENT_NAME}" =~ ^($AUTOFIX_EVENTS)$; then
-        return 0;
-    fi
+	if [[ "${GITHUB_EVENT_NAME}" =~ "^($AUTOFIX_EVENTS)$" ]]; then
+        return 0
+	fi
 
-    return 1
+	return 1
 }
 
 _requires_token() {
@@ -95,7 +95,7 @@ _commit_if_needed() {
 }
 
 _lint_and_fix_action() {
-	if _is_automated_event ; then
+	if _is_automated_event; then
 		if [[ ${2:-} == "autofix" ]]; then
 			_requires_token
 			fix
