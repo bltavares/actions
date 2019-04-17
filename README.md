@@ -87,7 +87,7 @@ run pointing to `master`, with no reference to the branch being discussed.
 _(So far I'm not aware how to make it work for both scenarios with the
 information provided)_
 
-#### Autofix on push
+#### Autofixing
 
 It is possible to add linters which will automatically fix itself. It does so by
 using the underlying autofix, commiting and running the lints right after.
@@ -96,7 +96,8 @@ Running a second time allows the check to validate if the automatic changes
 fixed all the warnings, as some warnings cannot be automated by the underlying
 tool.
 
-This uses the `push` event, and it can be enabled using the `args = ["autofix"]`.
+Autofixing can be enabled by passing the `autofix` argument using `args = ["autofix"]`.
+By default the github `push` event is used.
 
 ```hcl
 workflow "on reviews" {
@@ -110,6 +111,33 @@ action "shfmt" {
   secrets = ["GITHUB_TOKEN"]
 }
 ```
+
+The github event can be configured via the `AUTOFIX_EVENTS` env variable.
+Following example uses the `pull_request` event, instead of `push`.
+
+```hcl
+workflow "on reviews" {
+  on = "pull_request_review"
+  resolves = ["shfmt"]
+}
+
+action "shfmt" {
+  uses = "bltavares/actions/shfmt@master"
+  args = ["autofix"]
+  env = {
+    AUTOFIX_EVENTS="pull_request,push"
+  }
+  secrets = ["GITHUB_TOKEN"]
+  needs = ["action-filter"]
+}
+
+action "action-filter" {
+  uses = "actions/bin/filter@master"
+  args = "action 'opened|ready_for_review|synchronize'"
+}
+```
+
+As the `pull_request` event is rather chatty it is recommended to apply action filters.
 
 ##### :warning: Caveats
 

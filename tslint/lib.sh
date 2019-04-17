@@ -1,5 +1,15 @@
 #!/bin/bash
 
+_is_automated_event() {
+    AUTOFIX_EVENTS=${AUTOFIX_EVENTS:-push}
+
+    if [[ "${GITHUB_EVENT_NAME}" =~ ^($AUTOFIX_EVENTS)$; then
+        return 0;
+    fi
+
+    return 1
+}
+
 _requires_token() {
 	if [[ -z $GITHUB_TOKEN ]]; then
 		echo "Set the GITHUB_TOKEN env variable."
@@ -26,6 +36,12 @@ _should_fix_review() {
 
 _git_is_dirty() {
 	[[ -n "$(git status -s)" ]]
+}
+
+_git_changed_files() {
+	local -r base_ref="$(jq --raw-output '.base_ref // "origin/" + (.pull_request.base.ref // "master")' "${GITHUB_EVENT_PATH}")"
+
+	git --no-pager diff "${base_ref}" --name-only
 }
 
 _local_commit() {
@@ -79,7 +95,7 @@ _commit_if_needed() {
 }
 
 _lint_and_fix_action() {
-	if [[ $GITHUB_EVENT_NAME == "push" ]]; then
+	if _is_automated_event ; then
 		if [[ ${2:-} == "autofix" ]]; then
 			_requires_token
 			fix
@@ -94,7 +110,6 @@ _lint_and_fix_action() {
 		fix
 		_commit_if_needed
 	fi
-
 }
 
 _lint_action() {
