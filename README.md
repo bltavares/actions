@@ -125,7 +125,7 @@ action "shfmt" {
   uses = "bltavares/actions/shfmt@master"
   args = ["autofix"]
   env = {
-    AUTOFIX_EVENTS="pull_request,push"
+    AUTOFIX_EVENTS="pull_request|push"
   }
   secrets = ["GITHUB_TOKEN"]
   needs = ["action-filter"]
