@@ -40,7 +40,7 @@ action "terraform" {
   secrets = ["GITHUB_TOKEN"]
 
   # Pass in extra args
-  # env {
+  # env = {
   #   EXTRA_ARGS = "--recursive"
   # }
 }

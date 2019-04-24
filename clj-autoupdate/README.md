@@ -35,7 +35,7 @@ action "autobump" {
     "AWS_ACCESS_KEY_ID",
     "AWS_SECRET_ACCESS_KEY"
   ]
-  env {
+  env = {
     BUCKET_PATH = "s3://bucket-name/path"
     PREFIX = "common"
   }
@@ -71,7 +71,7 @@ action "autobump" {
     "AWS_ACCESS_KEY_ID",
     "AWS_SECRET_ACCESS_KEY"
   ]
-  env {
+  env = {
     BUCKET_PATH = "s3://bucket-name/path"
     PREFIX = "common"
   }
