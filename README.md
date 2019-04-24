@@ -10,9 +10,9 @@ Detailed documentation on how to use each action located on their folder.
 ### Utilities
 
 <!-- markdownlint-disable MD013 -->
-| Action | Description                                              |
-|--------|----------------------------------------------------------|
-| bash   | Execute any shell command, with some utilities available |
+| Action       | Description                                              |
+|--------------|----------------------------------------------------------|
+| [bash](bash) | Execute any shell command, with some utilities available |
 <!-- markdownlint-enable MD013 -->
 
 ### Linters and Formatters
@@ -23,11 +23,12 @@ Detailed documentation on how to use each action located on their folder.
 | [clippy](clippy)             | Rust linter                   | x            | x (Partial fixes) | x (Partial fixes) |
 | [cljfmt](cljfmt)             | Clojure formatter             | x            | x                 | x                 |
 | [dartfmt](dartfmt)           | Dart (and Flutter) formatter  | x            | x                 | x                 |
-| [pwshfmt](pwshfmt)           | Powershell Formatter          | x            | x                 | x                 |
 | [prettier](prettier)         | An opinionated code formatter | x            | x (Partial fixes) | x (Partial fixes) |
+| [pwshfmt](pwshfmt)           | Powershell Formatter          | x            | x                 | x                 |
 | [rubocop](rubocop)           | Ruby linter                   | x            | x                 | x                 |
 | [rustfmt](rustfmt)           | Rust formatter                | x            | x                 | x                 |
 | [shfmt](shfmt)               | Shell formatter               | x            | x                 | x                 |
+| [terraform](terraform)       | Terraform linter              | x            | x                 | x                 |
 | [tslint](tslint)             | TypeScript lint and formatter | x            | x                 | x                 |
 | [zprint](zprint)             | Clojure formatter             | x            | x                 | x                 |
 | [dartanalyzer](dartanalyzer) | Dart (and Flutter) linter     | x            |                   |                   |
