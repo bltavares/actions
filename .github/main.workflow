@@ -10,13 +10,13 @@ workflow "On review" {
 
 action "lint" {
   needs = ["shellcheck", "hadolint", "mdlint", "kubeval"]
-  uses = "actions/bin/sh@master"
+  uses = "./bash"
   args = ["true"]
 }
 
 action "fixes" {
   needs = ["shfmt", "pwshfmt", "rubocop"]
-  uses = "actions/bin/sh@master"
+  uses = "./bash"
   args = ["true"]
 }
 
