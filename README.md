@@ -7,6 +7,14 @@ Detailed documentation on how to use each action located on their folder.
 
 ## Provided actions
 
+### Utilities
+
+<!-- markdownlint-disable MD013 -->
+| Action | Description                                              |
+|--------|----------------------------------------------------------|
+| bash   | Execute any shell command, with some utilities available |
+<!-- markdownlint-enable MD013 -->
+
 ### Linters and Formatters
 
 <!-- markdownlint-disable MD013 -->
