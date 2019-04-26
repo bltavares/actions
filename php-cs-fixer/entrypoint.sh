@@ -6,11 +6,11 @@ set -euo pipefail
 source /lib.sh
 
 lint() {
-	php-cs-fixer fix --dry-run -v --diff
+	_git_changed_files | xargs php-cs-fixer fix --config=.php_cs.dist --dry-run -v --diff --path-mode=intersection
 }
 
 fix() {
-	php-cs-fixer fix
+	_git_changed_files | xargs php-cs-fixer fix --config=.php_cs.dist -v --path-mode=intersection
 }
 
 _lint_and_fix_action php-cs-fixer "${@}"
