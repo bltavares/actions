@@ -41,7 +41,7 @@ _git_is_dirty() {
 _git_changed_files() {
 	local -r base_ref="$(jq --raw-output '.base_ref // "origin/" + (.pull_request.base.ref // "master")' "${GITHUB_EVENT_PATH}")"
 
-	git --no-pager diff "${base_ref}" --name-only
+	git --no-pager diff "${base_ref}" --name-only --diff-filter=ACMRTUXB
 }
 
 _local_commit() {
