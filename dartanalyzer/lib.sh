@@ -56,9 +56,10 @@ _remote_commit() {
 
 	# shellcheck disable=SC2034  # Unused variables left for readability
 	while read -r _src_mode dst_mode _src_sha dst_sha flag path; do
-		file_payload="{\"encoding\": \"base64\", \"content\": \"$(base64 "$path" | tr -d '\n')\"}"
+		local file_payload="$(mktemp)"
+		echo "{\"encoding\": \"base64\", \"content\": \"$(base64 "$path" | tr -d '\n')\"}" >$file_payload
 		file_response=$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
-			-d "$file_payload" \
+			-d @"$file_payload" \
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs")
 		echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"sha\": $(jq '.sha' <<<"$file_response")}" >>"$tmp_file"
 	done < <(git diff-files)
