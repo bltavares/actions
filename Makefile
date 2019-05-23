@@ -5,7 +5,7 @@ LIBS = $(addsuffix lib.sh,$(ACTIONS))
 all: lint $(LIBS)
 
 lint:
-	act
+	act -a lint
 
 $(LIBS) : lib.sh
 	cp $< $@
