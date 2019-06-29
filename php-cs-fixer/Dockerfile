@@ -16,7 +16,7 @@ RUN curl -L https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o php-cs-fi
 RUN apk --no-cache add \
   curl~=7 \
   jq~=1.6 \
-  bash~=4 \
+  bash~=5 \
   git~=2
 
 COPY lib.sh /lib.sh
