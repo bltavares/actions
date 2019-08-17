@@ -10,7 +10,7 @@ if [ -z "${SHFMT_ARGS:-}" ]; then
 fi
 
 fix() {
-	shfmt -s -w ${SHFMT_ARGS} .
+	shfmt -s -w ${SHFMT_ARGS:-} .
 }
 
 lint() {
