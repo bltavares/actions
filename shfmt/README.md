@@ -38,3 +38,7 @@ action "shfmt" {
   secrets = ["GITHUB_TOKEN"]
 }
 ```
+
+## Environment Variables
+
+* `SHFMT_ARGS` Additional command-line parameters passed to shfmt
