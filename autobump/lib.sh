@@ -1,5 +1,15 @@
 #!/bin/bash
 
+_is_automated_event() {
+	AUTOFIX_EVENTS=${AUTOFIX_EVENTS:-push}
+
+	if [[ ${GITHUB_EVENT_NAME} =~ ^($AUTOFIX_EVENTS)$ ]]; then
+		return 0
+	fi
+
+	return 1
+}
+
 _requires_token() {
 	if [[ -z ${GITHUB_TOKEN:-} ]]; then
 		echo "Set the GITHUB_TOKEN env variable."
@@ -32,6 +42,12 @@ _git_is_dirty() {
 	[[ -n "$(git status -s)" ]]
 }
 
+_git_changed_files() {
+	local -r base_ref="$(jq --raw-output '.base_ref // "origin/" + (.pull_request.base.ref // "master")' "${GITHUB_EVENT_PATH}")"
+
+	git --no-pager diff "${base_ref}" --name-only
+}
+
 _local_commit() {
 	git config --global user.name "github-actions[bot]"
 	git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -44,9 +60,10 @@ _remote_commit() {
 
 	# shellcheck disable=SC2034  # Unused variables left for readability
 	while read -r _src_mode dst_mode _src_sha dst_sha flag path; do
-		file_payload="{\"encoding\": \"base64\", \"content\": \"$(base64 "$path" | tr -d '\n')\"}"
+		file_payload="$(mktemp)"
+		echo "{\"encoding\": \"base64\", \"content\": \"$(base64 "$path" | tr -d '\n')\"}" >"$file_payload"
 		file_response=$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
-			-d "$file_payload" \
+			-d @"$file_payload" \
 			"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs")
 		echo "{ \"mode\": \"${dst_mode}\", \"path\": \"${path}\", \"sha\": $(jq '.sha' <<<"$file_response")}" >>"$tmp_file"
 	done < <(git diff-files)
@@ -83,7 +100,7 @@ _commit_if_needed() {
 }
 
 _lint_and_fix_action() {
-	if [[ $GITHUB_EVENT_NAME == "push" ]]; then
+	if _is_automated_event; then
 		if [[ ${2:-} == "autofix" ]]; then
 			_requires_token
 			fix
@@ -98,7 +115,6 @@ _lint_and_fix_action() {
 		fix
 		_commit_if_needed
 	fi
-
 }
 
 _lint_action() {
