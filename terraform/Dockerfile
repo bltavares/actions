@@ -1,4 +1,4 @@
-FROM hashicorp/terraform:0.12.0-beta2
+FROM hashicorp/terraform:light
 
 LABEL "com.github.actions.name"="terraform"
 LABEL "com.github.actions.description"="Provides linting and fixes using terraform fmt"
