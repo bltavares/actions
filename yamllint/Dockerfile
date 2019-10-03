@@ -9,7 +9,7 @@ LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"
 LABEL "maintainer"="Bruno Tavares <connect+githubactions@bltavares.com>"
 
-RUN pip install --user yamllint
+RUN pip install yamllint
 
 RUN apk --no-cache add \
   curl~=7 \
