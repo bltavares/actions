@@ -1,4 +1,4 @@
-FROM python:3.7.4
+FROM python:3.7.4-alpine
 
 LABEL "com.github.actions.name"="yaml"
 LABEL "com.github.actions.description"="Provides linting and fixes using yamllint"
@@ -14,7 +14,7 @@ RUN pip install yamllint
 RUN apk --no-cache add \
   curl~=7 \
   jq~=1.6 \
-  bash~=4 \
+  bash~=5 \
   git~=2
 
 COPY lib.sh /lib.sh
