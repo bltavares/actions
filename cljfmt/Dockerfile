@@ -1,4 +1,4 @@
-FROM clojure:tools-deps-alpine
+FROM clojure:lein-alpine
 
 LABEL "com.github.actions.name"="cljfmt"
 LABEL "com.github.actions.description"="Provides linting and fixes using cljfmt"
@@ -9,7 +9,7 @@ LABEL "repository"="http://github.com/bltavares/actions"
 LABEL "homepage"="http://github.com/bltavares/actions"
 LABEL "maintainer"="Bruno Tavares <connect+githubactions@bltavares.com>"
 
-RUN clojure -Sdeps '{:deps {lein-cljfmt {:mvn/version "0.6.4"}}}' -e ':ok'
+ENV CLOJURE_VERSION=1.10.1.483
 
 RUN apk --no-cache add \
   curl~=7 \
@@ -17,6 +17,12 @@ RUN apk --no-cache add \
   bash~=4 \
   git~=2
 
+RUN wget https://download.clojure.org/install/linux-install-$CLOJURE_VERSION.sh && \
+  chmod +x linux-install-$CLOJURE_VERSION.sh && \
+  ./linux-install-$CLOJURE_VERSION.sh && \
+  clojure -e "(clojure-version)"
+
 COPY lib.sh /lib.sh
 COPY entrypoint.sh /entrypoint.sh
+COPY rewrite_projectclj.clj /rewrite_projectclj.clj
 ENTRYPOINT ["/entrypoint.sh"]
