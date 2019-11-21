@@ -87,7 +87,7 @@ action "cljfmt" {
 
 ![Example: fix using review comment](./docs/fix-using-review-comment.png)
 
-The even **only** works on Review comments, not on regular PR comments.
+The event **only** works on Review comments, not on regular PR comments.
 
 This is a limitation of the information provided on the event payload, which
 Review comments are run on the PR context, while regular comments on the PR are
