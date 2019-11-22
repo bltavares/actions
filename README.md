@@ -30,13 +30,13 @@ Detailed documentation on how to use each action located on their folder.
 | [shfmt](shfmt)               | Shell formatter               | x            | x                 | x                 |
 | [terraform](terraform)       | Terraform linter              | x            | x                 | x                 |
 | [tslint](tslint)             | TypeScript lint and formatter | x            | x                 | x                 |
+| [yamllint](yamllint)         | YAML linter                   | x            | x                 |                   |
 | [zprint](zprint)             | Clojure formatter             | x            | x                 | x                 |
 | [dartanalyzer](dartanalyzer) | Dart (and Flutter) linter     | x            |                   |                   |
 | [hadolint](hadolint)         | Dockerfile linter             | x            |                   |                   |
 | [kubeval](kubeval)           | Kubernets (k8s) linter        | x            |                   |                   |
 | [mdlint](mdlint)             | Markdown linting              | x            |                   |                   |
 | [shellcheck](shellcheck)     | Bash linter                   | x            |                   |                   |
-| [markdownlint](markdownlint) | Markdown linter               | x            |                   |                   |
 <!-- markdownlint-enable MD013 -->
 
 #### Linters on push
