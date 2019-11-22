@@ -36,6 +36,7 @@ Detailed documentation on how to use each action located on their folder.
 | [kubeval](kubeval)           | Kubernets (k8s) linter        | x            |                   |                   |
 | [mdlint](mdlint)             | Markdown linting              | x            |                   |                   |
 | [shellcheck](shellcheck)     | Bash linter                   | x            |                   |                   |
+| [markdownlint](markdownlint) | Markdown linter               | x            |                   |                   |
 <!-- markdownlint-enable MD013 -->
 
 #### Linters on push
