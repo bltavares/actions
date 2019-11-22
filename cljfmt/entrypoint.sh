@@ -5,8 +5,6 @@ set -euo pipefail
 # shellcheck disable=SC1091
 source /lib.sh
 declare -a file_args=()
-paths="${@:2}"
-echo "paths: $paths"
 
 cljfmt() {
 	clojure -Sdeps '{:deps {lein-cljfmt {:mvn/version "0.6.4"}}}' \
