@@ -14,11 +14,11 @@ cljfmt() {
 }
 
 fix() {
-	cljfmt fix
+	cljfmt fix "$@"
 }
 
 lint() {
-	cljfmt check
+	cljfmt check "$@"
 }
 
 setup_files() {
