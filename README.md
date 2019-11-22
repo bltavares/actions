@@ -1,4 +1,4 @@
-# Github Actions
+# GitHub Actions
 
 ![Alpha software](https://img.shields.io/badge/stability-alpha-yellowgreen.svg)
 
