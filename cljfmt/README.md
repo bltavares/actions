@@ -5,7 +5,7 @@
 This actions will check the formatting of the project, using
 [cljfmt](https://github.com/weavejester/cljfmt).
 
-This action make use of `tool.deps` instead of `lein`, which provides global
+This action makes use of `tool.deps` instead of `lein`, which provides global
 execution of `cljfmt` without needing to use the `lein` plugin. This way, you
 are able to format the project without providing access to any project
 dependencies.
@@ -34,25 +34,18 @@ be added to the branch with the automated fixes applied.
 
 ## Example workflow
 
-```hcl
-workflow "on push" {
-  on = "push"
-  resolves = ["cljfmt"]
-}
-
-# Used for fix on review
-# Don't enable if you plan using autofix on push
-# Or there might be race conditions
-workflow "on review" {
-  resolves = ["cljfmt"]
-  on = "pull_request_review"
-}
-
-action "cljfmt" {
-  uses = "bltavares/actions/cljfmt@master"
-  # Enable autofix on push
-  # args = ["autofix"]
-  # Used for pushing changes for `fix` comments on review
-  secrets = ["GITHUB_TOKEN"]
-}
+```yaml
+name: Clojure linter
+on:
+  push # change to "pull_request_review" for running on PR reviews
+jobs:
+  clojureLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: bltavares/actions/cljfmt@1.0.8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: autofix src test extra-src-path
 ```
