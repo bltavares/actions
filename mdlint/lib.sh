@@ -99,16 +99,16 @@ _lint_and_fix_action() {
 	if _is_automated_event; then
 		if [[ ${2:-} == "autofix" ]]; then
 			_requires_token
-			fix
+			fix "${@:3}"
 			_commit_if_needed
-			lint
+			lint "${@:3}"
 		else
-			lint
+			lint "${@:3}"
 		fi
 	elif [[ $GITHUB_EVENT_NAME == "pull_request_review" ]]; then
 		_requires_token
 		_should_fix_review "fix $GITHUB_ACTION" || _should_fix_review "fix $1"
-		fix
+		fix "${@:3}"
 		_commit_if_needed
 	fi
 }
