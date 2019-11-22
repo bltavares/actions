@@ -4,27 +4,32 @@ set -euo pipefail
 
 # shellcheck disable=SC1091
 source /lib.sh
-
-rewrite() {
-	clojure -Sdeps '{:deps {rewrite-clj {:mvn/version "0.6.1"}}}' /rewrite_projectclj.clj
-}
+declare -a file_args=()
+paths="${@:2}"
+echo "paths: $paths"
 
 cljfmt() {
-	rewrite
-	lein cljfmt "$@"
-	git checkout -- project.clj
+	clojure -Sdeps '{:deps {lein-cljfmt {:mvn/version "0.6.4"}}}' \
+		-m cljfmt.main "${file_args[@]}" "$@"
 }
 
 fix() {
-	rewrite
-	lein cljfmt fix
-	git checkout -- project.clj
+	cljfmt fix
 }
 
 lint() {
-	rewrite
-	lein cljfmt check
-	git checkout -- project.clj
+	cljfmt check
 }
 
+setup_files() {
+	if [[ -f .cljfmt-indents.edn ]]; then
+		file_args+=(--indents .cljfmt-indents.edn)
+	fi
+
+	if [[ -f .cljfmt-alias.edn ]]; then
+		file_args+=(--alias-map .cljfmt-alias.edn)
+	fi
+}
+
+setup_files
 _lint_and_fix_action cljfmt "${@}"
