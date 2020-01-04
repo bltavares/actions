@@ -3,7 +3,7 @@
 ![Alpha software](https://img.shields.io/badge/stability-alpha-yellowgreen.svg)
 
 Useful GitHub Actions to help build software.
-Detailed documentation on how to use each action located on their folder.
+Detailed documentation on how to use each action located in their folder.
 
 ## Provided actions
 
@@ -152,7 +152,7 @@ As the `pull_request` event is rather chatty it is recommended to apply action f
 ##### :warning: Caveats
 
 Autofixes requires a certain level of coordination when building the workflow.
-Given that each action runes and modify the code, they need to be sequential,
+Given that each action runs and modify the code, they need to be sequential,
 otherwise a data race might lead to lost commits.
 
 The _autofixers_ might run in parallel of other linters, but not in parallel of
