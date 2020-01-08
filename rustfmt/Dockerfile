@@ -1,4 +1,4 @@
-FROM rust:1.32-slim
+FROM rust:1.40-slim
 
 LABEL "com.github.actions.name"="rustfmt"
 LABEL "com.github.actions.description"="Provides formating and fixes for Rust using rustfmt"
