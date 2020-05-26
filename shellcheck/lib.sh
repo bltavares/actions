@@ -11,10 +11,14 @@ _is_automated_event() {
 }
 
 _requires_token() {
-	if [[ -z $GITHUB_TOKEN ]]; then
+	if [[ -z ${GITHUB_TOKEN:-} ]]; then
 		echo "Set the GITHUB_TOKEN env variable."
 		exit 1
 	fi
+}
+
+_has_token() {
+	[[ -n ${GITHUB_TOKEN:-} ]]
 }
 
 _should_fix_issue() {
@@ -117,4 +121,74 @@ _lint_action() {
 	if [[ ${GITHUB_EVENT_NAME} == "push" ]]; then
 		lint "${@}"
 	fi
+}
+
+_read_last_tag() {
+	tag="$(git describe --tags --abbrev=0 --first-parent)"
+	echo "${tag%%~*}"
+}
+
+_write_tag() {
+	if [[ -z ${1:-} ]]; then
+		version="$(cat)"
+	else
+		version="$1"
+	fi
+
+	git config --global user.name "github-actions[bot]"
+	git config --global user.email "github-actions[bot]@users.noreply.github.com"
+	git tag -f -a "$version" -m "Release ${version}"
+	echo "${version}"
+}
+
+_autobump_version() {
+	if [[ -z ${1:-} ]]; then
+		version="$(cat)"
+	else
+		version="$1"
+	fi
+
+	IFS="." read -r major minor patch <<<"$version"
+
+	patch=$((patch + 1))
+
+	if [[ $patch -gt 999 ]]; then
+		patch=0
+		minor=$((minor + 1))
+	fi
+
+	if [[ $minor -gt 999 ]]; then
+		patch=0
+		minor=0
+		major=$((major + 1))
+	fi
+	echo "${major:-0}.${minor:-0}.${patch:-0}"
+}
+
+_release_id() {
+	local RELEASE_ID="$(jq --raw-output '.release.id' "$GITHUB_EVENT_PATH")"
+	if [[ -z ${RELEASE_ID} ]] || [[ ${RELEASE_ID} == "null" ]]; then
+		RELEASE_ID=$(curl --fail \
+			-H "Authorization: token ${GITHUB_TOKEN}" \
+			"https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" |
+			jq --raw-output ".[] | select(.tag_name == \"$TAG\") | .id")
+	fi
+
+	echo "$RELEASE_ID"
+}
+
+_upload_release() {
+	local FILENAME="$1"
+	local CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "${FILENAME}")"
+	local CONTENT_TYPE_HEADER="Content-Type: ${2:-application/zip}"
+	local RELEASE_ID="$(_release_id)"
+	local UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=$(basename "${FILENAME}")"
+
+	curl --fail \
+		-XPOST \
+		-H "Authorization: token ${GITHUB_TOKEN}" \
+		-H "${CONTENT_LENGTH_HEADER}" \
+		-H "${CONTENT_TYPE_HEADER}" \
+		--upload-file "${FILENAME}" \
+		"${UPLOAD_URL}"
 }
