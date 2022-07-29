@@ -31,7 +31,7 @@ __switch_to_branch() {
 
 _should_fix_review() {
 	fix_comment="$(jq --raw-output ".review.body | select(. | startswith(\"$1\"))" "$GITHUB_EVENT_PATH")"
-	[[ -n $fix_comment ]] || exit 0
+	[[ -n $fix_comment ]]
 }
 
 _git_is_dirty() {
@@ -44,6 +44,16 @@ _git_changed_files() {
 	git --no-pager diff "${base_ref}" --name-only
 }
 
+_git_head() {
+	if [[ ${GITHUB_EVENT_NAME} == "push" ]]; then
+		echo "${GITHUB_REF}"
+	elif [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+		echo "refs/heads/${GITHUB_HEAD_REF}"
+	elif [[ $GITHUB_EVENT_NAME == "pull_request_review" ]]; then
+		echo "refs/heads/${GITHUB_PR_HEAD_REF}"
+	fi
+}
+
 _local_commit() {
 	git config --global user.name "github-actions[bot]"
 	git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -53,6 +63,7 @@ _local_commit() {
 
 _remote_commit() {
 	tmp_file="$(mktemp)"
+	git_head="$(_git_head)"
 
 	# shellcheck disable=SC2034  # Unused variables left for readability
 	while read -r _src_mode dst_mode _src_sha dst_sha flag path; do
@@ -66,7 +77,7 @@ _remote_commit() {
 
 	head_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
 		-X GET \
-		"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF}")"
+		"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${git_head}")"
 	head_sha="$(jq '.object.sha' <<<"$head_response")"
 
 	tree_payload="{\"base_tree\": ${head_sha}, \"tree\": $(jq -s '.' "$tmp_file")}"
@@ -84,7 +95,7 @@ _remote_commit() {
 	update_branch_response="$(curl --fail -H "Authorization: token ${GITHUB_TOKEN}" \
 		-d "$update_branch_payload" \
 		-X PATCH \
-		"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${GITHUB_REF}")"
+		"https://api.github.com/repos/${GITHUB_REPOSITORY}/git/${git_head}")"
 
 }
 
@@ -106,10 +117,12 @@ _lint_and_fix_action() {
 			lint "${@:3}"
 		fi
 	elif [[ $GITHUB_EVENT_NAME == "pull_request_review" ]]; then
-		_requires_token
-		_should_fix_review "fix $GITHUB_ACTION" || _should_fix_review "fix $1"
-		fix "${@:3}"
-		_commit_if_needed
+		if _should_fix_review "fix $GITHUB_ACTION" || _should_fix_review "fix $1"; then
+			_requires_token
+			fix "${@:3}"
+			_commit_if_needed
+		else
+			exit 0
 	fi
 }
 
